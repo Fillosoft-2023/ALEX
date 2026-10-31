@@ -31,30 +31,7 @@ body {
   letter-spacing: 0.02em;
 }
 
-@font-face {
-  font-family: 'Mephisto';
-  src: url('/fonts/Mephisto.otf') format('opentype'),
-       url('/fonts/Mephisto.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Chavalard';
-  src: url('/fonts/ChavalardStencil.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pierknife';
-  src: url('/fonts/Pierknife-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Typography variables are loaded and optimized by next/font in layout.jsx */
 
 /* Normal clean typography for headings across the site */
 h1, h2, h3, h4, h5, h6 {

@@ -28,25 +28,9 @@ export default function ServicesOverview() {
           }}
         />
 
-        {/* 2. Floating Ambient Glow Orbs with organic drift */}
-        <motion.div
-          animate={{
-            x: [0, 30, -20, 0],
-            y: [0, -20, 15, 0],
-            scale: [1, 1.08, 0.96, 1]
-          }}
-          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-10 -left-16 w-80 h-80 rounded-full bg-sage/45 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -25, 20, 0],
-            y: [0, 25, -15, 0],
-            scale: [1, 0.94, 1.06, 1]
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-10 right-0 w-96 h-96 rounded-full bg-teal-deep/10 blur-3xl"
-        />
+        {/* 2. Subtle Ambient Glow Orbs */}
+        <div className="absolute -top-10 -left-16 w-80 h-80 rounded-full bg-sage/30 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 right-0 w-96 h-96 rounded-full bg-teal-deep/10 blur-3xl pointer-events-none" />
 
         {/* 3. Hospital Telemetry / ECG Heartbeat Lifeline Wave Animation */}
         <div className="absolute top-12 left-0 right-0 w-full overflow-hidden opacity-30 select-none">
