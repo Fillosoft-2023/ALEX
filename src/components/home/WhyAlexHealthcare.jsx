@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { 
   Layers, 
   ShieldAlert, 
@@ -10,12 +10,14 @@ import {
   Compass, 
   Activity, 
   FileCheck2,
-  Building
+  Building,
+  Sparkles
 } from 'lucide-react';
 import { motion, useScroll, useSpring, MotionConfig } from 'framer-motion';
 
 export default function WhyAlexHealthcare() {
   const sectionRef = useRef(null);
+  const [hoveredPillar, setHoveredPillar] = useState(0);
 
   // Scroll progress for the connected engineering line
   const { scrollYProgress } = useScroll({
@@ -55,7 +57,7 @@ export default function WhyAlexHealthcare() {
       title: 'Coordinated Planning to Commissioning',
       subtitle: 'Clinical Handover Readiness',
       desc: 'From architectural floorplans to final biomedical calibration and municipal Fire NOC filings, our project directors ensure zero delays between building handover and hospital opening.',
-      spec: 'Turnkey Handover & NOC'
+      spec: 'Commissioning & NOC'
     },
     {
       num: '04',
@@ -63,7 +65,7 @@ export default function WhyAlexHealthcare() {
       phase: 'Phase IV // Regional Execution',
       title: 'Regional Knowledge & Client Delivery',
       subtitle: 'Northeast India Mastery',
-      desc: 'Based in Guwahati with 12+ years of on-ground regional experience navigating local terrain, supply chain logistics, seismic design considerations, and statutory health directorate frameworks.',
+      desc: 'Based in Guwahati with 6+ years of on-ground regional experience navigating local terrain, supply chain logistics, seismic design considerations, and statutory health directorate frameworks.',
       spec: 'Seismic Zone V Certified'
     }
   ];
@@ -72,7 +74,7 @@ export default function WhyAlexHealthcare() {
     <MotionConfig reducedMotion="user">
       <section 
         ref={sectionRef} 
-        className="relative w-full bg-[#EDF1E8] text-[#293D37] py-16 sm:py-24 border-b border-[#174F49]/15 overflow-hidden"
+        className="relative w-full bg-gradient-to-b from-[#d2e5d8] via-[#c6ded0] to-[#d2e5d8] text-[#1c3832] py-16 sm:py-24 border-b border-[#174F49]/25 overflow-hidden"
       >
       {/* 1. Subtle Architectural Blueprint Background Grid & Schematic */}
       <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
@@ -98,56 +100,98 @@ export default function WhyAlexHealthcare() {
           }}
         />
 
-        {/* Subtle Hospital Floor-Plan Architectural Stroke Illustration */}
+        {/* Subtle Hospital Floor-Plan Architectural Stroke Illustration with Dynamic Hover Highlighting */}
         <svg 
-          className="absolute right-[-4%] top-12 w-[680px] h-[520px] stroke-[#174F49] opacity-[0.12] hidden lg:block"
+          className="absolute right-[-4%] top-12 w-[680px] h-[520px] stroke-[#174F49] opacity-[0.25] hidden lg:block transition-all duration-500"
           viewBox="0 0 700 500" 
           fill="none" 
           strokeWidth="1.25"
         >
-          {/* Main surgical block boundary */}
-          <rect x="50" y="40" width="580" height="400" strokeDasharray="6 4" />
+          {/* Main surgical block boundary (Phase 0) */}
+          <rect 
+            x="50" y="40" width="580" height="400" 
+            strokeDasharray="6 4"
+            stroke={hoveredPillar === 0 ? '#ffca28' : '#174F49'} 
+            strokeWidth={hoveredPillar === 0 ? 2 : 1.25}
+            fill={hoveredPillar === 0 ? 'rgba(255, 202, 40, 0.08)' : 'none'}
+            className="transition-all duration-300"
+          />
           
-          {/* Modular OT Suite 1 */}
-          <rect x="70" y="60" width="220" height="180" />
+          {/* Modular OT Suite 1 (Phase 1) */}
+          <rect 
+            x="70" y="60" width="220" height="180" 
+            stroke={hoveredPillar === 1 ? '#ffca28' : '#174F49'}
+            strokeWidth={hoveredPillar === 1 ? 2.5 : 1.25}
+            fill={hoveredPillar === 1 ? 'rgba(255, 202, 40, 0.15)' : 'none'}
+            className="transition-all duration-300"
+          />
           <line x1="70" y1="120" x2="110" y2="120" />
-          <circle cx="180" cy="150" r="30" strokeDasharray="3 3" />
-          <path d="M 180 130 L 180 170 M 160 150 L 200 150" />
-          <text x="80" y="80" fill="#174F49" fontSize="10" fontFamily="monospace" letterSpacing="1.5">OT SUITE 01 [LAMINAR]</text>
+          <circle cx="180" cy="150" r="30" strokeDasharray="3 3" stroke={hoveredPillar === 1 ? '#ffca28' : '#174F49'} />
+          <path d="M 180 130 L 180 170 M 160 150 L 200 150" stroke={hoveredPillar === 1 ? '#ffca28' : '#174F49'} />
+          <text x="80" y="80" fill={hoveredPillar === 1 ? '#d97706' : '#174F49'} fontSize="10" fontFamily="monospace" fontWeight="bold" letterSpacing="1.5">OT SUITE 01 [LAMINAR]</text>
 
           {/* Sterile Scrub Airlock */}
-          <rect x="310" y="60" width="140" height="90" />
-          <text x="320" y="80" fill="#174F49" fontSize="9" fontFamily="monospace">SCRUB AIRLOCK</text>
+          <rect 
+            x="310" y="60" width="140" height="90" 
+            stroke={hoveredPillar === 2 ? '#ffca28' : '#174F49'}
+            strokeWidth={hoveredPillar === 2 ? 2 : 1.25}
+            fill={hoveredPillar === 2 ? 'rgba(255, 202, 40, 0.12)' : 'none'}
+            className="transition-all duration-300"
+          />
+          <text x="320" y="80" fill={hoveredPillar === 2 ? '#d97706' : '#174F49'} fontSize="9" fontFamily="monospace">SCRUB AIRLOCK</text>
 
           {/* MGPS Gas Manifold Riser Duct */}
-          <rect x="310" y="165" width="140" height="75" strokeWidth="1.5" />
-          <text x="320" y="185" fill="#174F49" fontSize="9" fontFamily="monospace">MGPS RISER DUCT</text>
+          <rect 
+            x="310" y="165" width="140" height="75" strokeWidth="1.5" 
+            stroke={hoveredPillar === 1 ? '#ffca28' : '#174F49'}
+            fill={hoveredPillar === 1 ? 'rgba(255, 202, 40, 0.12)' : 'none'}
+            className="transition-all duration-300"
+          />
+          <text x="320" y="185" fill={hoveredPillar === 1 ? '#d97706' : '#174F49'} fontSize="9" fontFamily="monospace">MGPS RISER DUCT</text>
           <line x1="320" y1="205" x2="430" y2="205" strokeDasharray="4 2" />
 
-          {/* ICU Telemetry Bay */}
-          <rect x="470" y="60" width="140" height="180" />
-          <text x="480" y="80" fill="#174F49" fontSize="9" fontFamily="monospace">ICU TELEMETRY</text>
-          <rect x="490" y="100" width="40" height="25" strokeDasharray="2 2" />
-          <rect x="550" y="100" width="40" height="25" strokeDasharray="2 2" />
-          <rect x="490" y="145" width="40" height="25" strokeDasharray="2 2" />
-          <rect x="550" y="145" width="40" height="25" strokeDasharray="2 2" />
+          {/* ICU Telemetry Bay (Phase 2) */}
+          <rect 
+            x="470" y="60" width="140" height="180" 
+            stroke={hoveredPillar === 2 ? '#ffca28' : '#174F49'}
+            strokeWidth={hoveredPillar === 2 ? 2.5 : 1.25}
+            fill={hoveredPillar === 2 ? 'rgba(255, 202, 40, 0.15)' : 'none'}
+            className="transition-all duration-300"
+          />
+          <text x="480" y="80" fill={hoveredPillar === 2 ? '#d97706' : '#174F49'} fontSize="9" fontFamily="monospace" fontWeight="bold">ICU TELEMETRY</text>
+          <rect x="490" y="100" width="40" height="25" strokeDasharray="2 2" stroke={hoveredPillar === 2 ? '#ffca28' : '#174F49'} />
+          <rect x="550" y="100" width="40" height="25" strokeDasharray="2 2" stroke={hoveredPillar === 2 ? '#ffca28' : '#174F49'} />
+          <rect x="490" y="145" width="40" height="25" strokeDasharray="2 2" stroke={hoveredPillar === 2 ? '#ffca28' : '#174F49'} />
+          <rect x="550" y="145" width="40" height="25" strokeDasharray="2 2" stroke={hoveredPillar === 2 ? '#ffca28' : '#174F49'} />
 
           {/* Sterile Corridor */}
           <line x1="70" y1="260" x2="610" y2="260" strokeWidth="1.5" />
           <line x1="70" y1="300" x2="610" y2="300" strokeWidth="1.5" />
           <text x="260" y="285" fill="#174F49" fontSize="10" fontFamily="monospace" letterSpacing="3">STERILE AIR CASCADE CORRIDOR &rarr;</text>
 
-          {/* Recovery & Clean Core */}
-          <rect x="70" y="320" width="280" height="100" />
-          <text x="80" y="340" fill="#174F49" fontSize="9" fontFamily="monospace">PACU / RECOVERY WARD</text>
+          {/* Recovery & Clean Core (Phase 3) */}
+          <rect 
+            x="70" y="320" width="280" height="100" 
+            stroke={hoveredPillar === 3 ? '#ffca28' : '#174F49'}
+            strokeWidth={hoveredPillar === 3 ? 2 : 1.25}
+            fill={hoveredPillar === 3 ? 'rgba(255, 202, 40, 0.12)' : 'none'}
+            className="transition-all duration-300"
+          />
+          <text x="80" y="340" fill={hoveredPillar === 3 ? '#d97706' : '#174F49'} fontSize="9" fontFamily="monospace">PACU / RECOVERY WARD</text>
 
-          <rect x="370" y="320" width="240" height="100" />
-          <text x="380" y="340" fill="#174F49" fontSize="9" fontFamily="monospace">CLEAN UTILITY &amp; PHARMACY</text>
+          <rect 
+            x="370" y="320" width="240" height="100" 
+            stroke={hoveredPillar === 3 ? '#ffca28' : '#174F49'}
+            strokeWidth={hoveredPillar === 3 ? 2 : 1.25}
+            fill={hoveredPillar === 3 ? 'rgba(255, 202, 40, 0.12)' : 'none'}
+            className="transition-all duration-300"
+          />
+          <text x="380" y="340" fill={hoveredPillar === 3 ? '#d97706' : '#174F49'} fontSize="9" fontFamily="monospace">CLEAN UTILITY &amp; PHARMACY</text>
         </svg>
 
         {/* Ambient atmospheric organic glow */}
-        <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-[#174F49]/5 blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-[30rem] h-[30rem] rounded-full bg-[#D76D4C]/8 blur-3xl" />
+        <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-[#174F49]/10 blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-[30rem] h-[30rem] rounded-full bg-[#ffca28]/15 blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -164,13 +208,13 @@ export default function WhyAlexHealthcare() {
             className="lg:col-span-7 space-y-3.5"
           >
             {/* Technical Label */}
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#174F49]/10 border border-[#174F49]/20 text-[#174F49] text-xs font-mono font-bold tracking-widest uppercase">
-              <Compass className="w-3.5 h-3.5 text-[#D76D4C]" />
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-[#174F49]/20 text-[#174F49] text-xs font-mono font-bold tracking-widest uppercase shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               <span>Engineering Advantage</span>
             </div>
 
             {/* Large Editorial Headline */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-[#293D37] tracking-tight leading-[1.18]">
+            <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-[#174F49] tracking-tight leading-[1.18] font-serif">
               Why Healthcare Providers Choose Alex Healthcare System
             </h2>
           </motion.div>
@@ -181,21 +225,21 @@ export default function WhyAlexHealthcare() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-5 space-y-4 lg:pl-4 border-l-2 border-[#174F49]/20"
+            className="lg:col-span-5 space-y-4 lg:pl-4 border-l-2 border-[#174F49]/25"
           >
-            <p className="text-sm sm:text-base text-[#293D37]/85 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-[#1c3832]/85 leading-relaxed font-lora">
               Constructing a hospital is unlike any other commercial building project. Precision engineering, statutory life-safety, and clinical patient outcomes dictate every design and installation decision.
             </p>
 
             {/* Key Clinical Standards Ribbon */}
             <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono font-semibold text-[#174F49]">
-              <span className="bg-white/80 px-2.5 py-1 rounded border border-[#174F49]/15">
+              <span className="bg-white px-2.5 py-1 rounded-full border border-[#174F49]/20 shadow-2xs">
                 NABH &amp; NBC 2016
               </span>
-              <span className="bg-white/80 px-2.5 py-1 rounded border border-[#174F49]/15">
+              <span className="bg-white px-2.5 py-1 rounded-full border border-[#174F49]/20 shadow-2xs">
                 HTM 02-01 MGPS
               </span>
-              <span className="bg-white/80 px-2.5 py-1 rounded border border-[#174F49]/15">
+              <span className="bg-white px-2.5 py-1 rounded-full border border-[#174F49]/20 shadow-2xs">
                 ISO Class 7 Cleanrooms
               </span>
             </div>
@@ -211,9 +255,9 @@ export default function WhyAlexHealthcare() {
             <svg className="w-full h-8 overflow-visible" viewBox="0 0 1000 32" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="whySequenceGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#174F49" stopOpacity="0.3" />
-                  <stop offset="35%" stopColor="#174F49" stopOpacity="0.8" />
-                  <stop offset="70%" stopColor="#293D37" stopOpacity="0.9" />
+                  <stop offset="0%" stopColor="#174F49" stopOpacity="0.4" />
+                  <stop offset="35%" stopColor="#ffca28" stopOpacity="0.9" />
+                  <stop offset="70%" stopColor="#174F49" stopOpacity="0.9" />
                   <stop offset="100%" stopColor="#D76D4C" stopOpacity="1" />
                 </linearGradient>
               </defs>
@@ -221,7 +265,7 @@ export default function WhyAlexHealthcare() {
               {/* Faint Guide Track */}
               <line 
                 x1="0" y1="16" x2="1000" y2="16" 
-                stroke="rgba(23, 79, 73, 0.18)" 
+                stroke="rgba(23, 79, 73, 0.2)" 
                 strokeWidth="2" 
                 strokeDasharray="6 4" 
               />
@@ -234,11 +278,11 @@ export default function WhyAlexHealthcare() {
                 style={{ pathLength: smoothProgress }}
               />
 
-              {/* Station Junction Nodes */}
-              <circle cx="125" cy="16" r="4.5" fill="#174F49" />
-              <circle cx="375" cy="16" r="4.5" fill="#174F49" />
-              <circle cx="625" cy="16" r="4.5" fill="#293D37" />
-              <circle cx="875" cy="16" r="5" fill="#D76D4C" />
+              {/* Station Junction Nodes with Dynamic Active States */}
+              <circle cx="125" cy="16" r={hoveredPillar === 0 ? 8 : 4.5} fill={hoveredPillar === 0 ? '#ffca28' : '#174F49'} className="transition-all duration-300" />
+              <circle cx="375" cy="16" r={hoveredPillar === 1 ? 8 : 4.5} fill={hoveredPillar === 1 ? '#ffca28' : '#174F49'} className="transition-all duration-300" />
+              <circle cx="625" cy="16" r={hoveredPillar === 2 ? 8 : 4.5} fill={hoveredPillar === 2 ? '#ffca28' : '#174F49'} className="transition-all duration-300" />
+              <circle cx="875" cy="16" r={hoveredPillar === 3 ? 8 : 5} fill={hoveredPillar === 3 ? '#ffca28' : '#D76D4C'} className="transition-all duration-300" />
             </svg>
           </div>
 
@@ -246,6 +290,7 @@ export default function WhyAlexHealthcare() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 relative z-10">
             {pillars.map((pillar, idx) => {
               const Icon = pillar.icon;
+              const isHovered = hoveredPillar === idx;
               return (
                 <motion.div
                   key={idx}
@@ -258,26 +303,39 @@ export default function WhyAlexHealthcare() {
                     ease: [0.22, 1, 0.36, 1]
                   }}
                   whileHover={{ y: -6 }}
+                  onMouseEnter={() => setHoveredPillar(idx)}
                   tabIndex={0}
                   role="article"
                   aria-label={`${pillar.num}: ${pillar.title}`}
-                  className="group relative bg-[#F7F9F5] rounded-2xl p-6 sm:p-7 border border-[#174F49]/15 shadow-subtle hover:border-[#174F49] hover:shadow-float transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-default focus:outline-none focus:ring-2 focus:ring-[#174F49]"
+                  className={`group relative bg-white rounded-2xl p-6 sm:p-7 border transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#174F49] ${
+                    isHovered 
+                      ? 'border-amber-400 shadow-elevated ring-2 ring-amber-400/40 -translate-y-1.5' 
+                      : 'border-[#174F49]/20 shadow-card hover:border-[#174F49]/40'
+                  }`}
                 >
-                  {/* Top Reveal Accent Line (Terracotta #D76D4C on hover) */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-[#174F49]/10 group-hover:bg-[#D76D4C] transition-colors duration-300" />
+                  {/* Top Reveal Accent Line */}
+                  <div className={`absolute top-0 left-0 right-0 h-1 transition-colors duration-300 ${
+                    isHovered ? 'bg-amber-400' : 'bg-[#174F49]/15'
+                  }`} />
+
+                  {/* Modern Ambient Bioluminescent Glow on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/0 via-teal-400/10 to-amber-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                   {/* Upper Section */}
                   <div>
                     {/* Header Row: Sequential Oversized Number + Restrained Icon */}
                     <div className="flex items-center justify-between mb-5">
-                      {/* Oversized Number in Architectural Styling */}
-                      <span className="text-3xl sm:text-4xl font-extrabold font-mono text-[#174F49]/35 group-hover:text-[#D76D4C] transition-colors duration-300 select-none">
+                      <span className={`text-3xl sm:text-4xl font-extrabold font-mono transition-colors duration-300 select-none ${
+                        isHovered ? 'text-amber-500' : 'text-[#174F49]/35'
+                      }`}>
                         {pillar.num}
                       </span>
 
                       {/* Technical Icon Container */}
-                      <div className="w-11 h-11 rounded-xl bg-[#174F49]/10 text-[#174F49] group-hover:bg-[#174F49] group-hover:text-white transition-all duration-300 flex items-center justify-center shadow-xs">
-                        <Icon className="w-5 h-5 text-current group-hover:scale-110 transition-transform duration-300" />
+                      <div className={`w-11 h-11 rounded-xl transition-all duration-300 flex items-center justify-center shadow-xs ${
+                        isHovered ? 'bg-teal-deep text-white scale-110' : 'bg-[#174F49]/10 text-[#174F49]'
+                      }`}>
+                        <Icon className="w-5 h-5 text-current" />
                       </div>
                     </div>
 
@@ -286,30 +344,30 @@ export default function WhyAlexHealthcare() {
                       {pillar.phase}
                     </div>
 
-                    {/* Subtitle in Restrained Terracotta */}
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#D76D4C] mb-2">
+                    {/* Subtitle */}
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#d97706] mb-2 font-jost">
                       {pillar.subtitle}
                     </div>
 
                     {/* Capability Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-[#293D37] mb-3 leading-snug group-hover:text-[#174F49] transition-colors">
+                    <h3 className="text-lg sm:text-xl font-bold text-[#174F49] mb-3 leading-snug font-serif">
                       {pillar.title}
                     </h3>
 
-                    {/* Full Preserved Description */}
-                    <p className="text-xs sm:text-sm text-[#293D37]/80 leading-relaxed font-normal">
+                    {/* Description */}
+                    <p className="text-xs sm:text-sm text-[#1c3832]/80 leading-relaxed font-lora">
                       {pillar.desc}
                     </p>
                   </div>
 
                   {/* Bottom Metadata & Verified Capability Indicator */}
                   <div className="pt-4 mt-6 border-t border-[#174F49]/10 flex items-center justify-between">
-                    <div className="flex items-center space-x-1.5 text-xs font-semibold text-[#174F49]">
-                      <CheckCircle2 className="w-4 h-4 text-[#174F49] flex-shrink-0" />
-                      <span>Verified Capability</span>
+                    <div className="flex items-center space-x-1.5 text-xs font-semibold text-[#174F49] font-jost">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                      <span>Verified Standard</span>
                     </div>
 
-                    <span className="text-[10px] font-mono text-[#293D37]/50 uppercase tracking-wider">
+                    <span className="text-[10px] font-mono text-[#174F49]/70 uppercase tracking-wider font-semibold">
                       {pillar.spec}
                     </span>
                   </div>

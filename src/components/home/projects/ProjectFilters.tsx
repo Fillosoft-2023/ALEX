@@ -26,7 +26,7 @@ export default function ProjectFilters({
       <div 
         role="tablist" 
         aria-orientation="horizontal"
-        className="inline-flex items-center p-1 rounded-full bg-[#E6EAE0]/70 border border-[#17645D]/15 backdrop-blur-sm"
+        className="inline-flex items-center p-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-md"
       >
         {categories.map((category) => {
           const isActive = activeCategory === category;
@@ -39,17 +39,17 @@ export default function ProjectFilters({
               aria-selected={isActive}
               tabIndex={isActive ? 0 : -1}
               onClick={() => onSelectCategory(category)}
-              className={`relative px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-colors duration-200 flex items-center space-x-1.5 sm:space-x-2 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#17645D] ${
+              className={`relative px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-colors duration-200 flex items-center space-x-1.5 sm:space-x-2 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 font-jost uppercase tracking-wider cursor-pointer ${
                 isActive
-                  ? 'text-[#F3F2EB]'
-                  : 'text-[#293D37]/80 hover:text-[#17645D] hover:bg-[#17645D]/5'
+                  ? 'text-white font-bold'
+                  : 'text-white/75 hover:text-white hover:bg-white/10'
               }`}
             >
               {/* Active animated background bubble */}
               {isActive && (
                 <motion.div
                   layoutId="activeProjectFilterBubble"
-                  className="absolute inset-0 rounded-full bg-[#17645D] shadow-sm z-0"
+                  className="absolute inset-0 rounded-full bg-teal-deep border border-amber-400/50 shadow-sm z-0"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
@@ -61,8 +61,8 @@ export default function ProjectFilters({
               <span
                 className={`relative z-10 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-full transition-colors ${
                   isActive
-                    ? 'bg-[#F3F2EB]/20 text-[#F3F2EB]'
-                    : 'bg-[#17645D]/10 text-[#17645D]'
+                    ? 'bg-amber-400/30 text-amber-300'
+                    : 'bg-white/10 text-white/70'
                 }`}
               >
                 {count}

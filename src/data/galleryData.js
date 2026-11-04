@@ -89,20 +89,20 @@ export const galleryItems = [
   {
     id: 'star-hospital-hojai',
     title: 'Star Hospital, Hojai',
-    subtitle: '70-Bed Turnkey Healthcare Infrastructure',
+    subtitle: '70-Bed Multi-Speciality Infrastructure',
     src: '/star1.png',
     category: 'Verified Hospital Facades',
     categoryKey: 'asset-photos',
     location: 'Hojai, Assam',
     isPrimaryAsset: false,
-    tag: 'Turnkey Hospital',
-    caption: '70-bed turnkey multi-speciality hospital building delivered by Alex Healthcare System in Hojai, Assam including civil engineering, modular OT, and medical gas pipeline setup.',
+    tag: 'Hospital Development',
+    caption: '70-bed multi-speciality hospital building delivered by Alex Healthcare System in Hojai, Assam including civil engineering, modular OT, and medical gas pipeline setup.',
     projectId: '0',
     projectSlug: 'star-hospital-hojai',
     details: [
       'Ground-up hospital civil construction and architectural zoning',
       'Full centralized MGPS network and manifold station',
-      'Turnkey modular operating theatre and recovery wards'
+      'Integrated modular operating theatre and recovery wards'
     ]
   },
   {
@@ -172,7 +172,7 @@ export const galleryItems = [
     location: 'Nagaon, Assam',
     isPrimaryAsset: false,
     tag: 'Modular OT',
-    caption: 'Turnkey single modular operating theatre suite at Nagaon Metro Hospital & Research Centre — equipped with anti-microbial coved flooring, surgeon control panel, and sterile air balancing.',
+    caption: 'Single modular operating theatre suite at Nagaon Metro Hospital & Research Centre — equipped with anti-microbial coved flooring, surgeon control panel, and sterile air balancing.',
     projectId: '4',
     projectSlug: 'nagaon-metro-hospital',
     details: [

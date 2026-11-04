@@ -1,13 +1,13 @@
 export const faqData = [
   {
     question: "What services does Alex Healthcare System provide?",
-    answer: "We offer comprehensive turnkey hospital construction, medical gas pipeline systems (MGPS), modular OT & ICU setups, hospital furniture, surgical equipment supply, hospital licensing support, fire safety engineering, and specialized healthcare architectural design.",
+    answer: "We offer end-to-end hospital construction, medical gas pipeline systems (MGPS), modular OT & ICU setups, hospital furniture, surgical equipment supply, hospital licensing support, fire safety engineering, and specialized healthcare architectural design.",
     category: "Services"
   },
   {
     question: "Do you provide end-to-end hospital project execution?",
-    answer: "Yes, we handle complete turnkey projects from initial concept, architectural planning, and statutory licensing to civil construction, MEP integration, equipment procurement, and final clinical commissioning under single-point responsibility.",
-    category: "Turnkey Execution"
+    answer: "Yes, we handle complete hospital projects from initial concept, architectural planning, and statutory licensing to civil construction, MEP integration, equipment procurement, and final clinical commissioning under single-point responsibility.",
+    category: "Project Execution"
   },
   {
     question: "Where do you operate?",

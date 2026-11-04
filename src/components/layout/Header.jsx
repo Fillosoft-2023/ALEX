@@ -20,6 +20,7 @@ import {
   Flame,
   Cpu
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { companyData } from '@/data/companyData';
 
 export default function Header() {
@@ -67,7 +68,10 @@ export default function Header() {
     <header className="fixed top-3 sm:top-5 inset-x-0 z-50 px-3 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
       <div className="max-w-7xl mx-auto">
         {/* Main Floating Capsule Navigation Bar */}
-        <nav 
+        <motion.nav
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className={`pointer-events-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between border shadow-float ${
             isScrolled 
               ? 'bg-[#f7f5ef]/95 backdrop-blur-xl border-teal-deep/20 shadow-elevated' 
@@ -118,8 +122,15 @@ export default function Header() {
                     </Link>
 
                     {/* Services Mega Menu Dropdown */}
+                    <AnimatePresence>
                     {servicesDropdownOpen && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-[840px] max-w-[calc(100vw-2rem)] pt-3 z-50">
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 8 }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 w-[840px] max-w-[calc(100vw-2rem)] pt-3 z-50"
+                      >
                         {/* Invisible hover bridge to keep dropdown open during mouse movement */}
                         <div className="absolute -top-3 left-0 right-0 h-4" />
 
@@ -166,7 +177,7 @@ export default function Header() {
                           >
                             <div className="flex items-center space-x-2 text-charcoal-green">
                               <ShieldCheck className="w-4 h-4 text-forest flex-shrink-0" />
-                              <span className="font-semibold">100% Turnkey Support from Engineering to NABH Handover</span>
+                              <span className="font-semibold">Comprehensive Support from Engineering to NABH Handover</span>
                             </div>
                             <Link 
                               href="/services" 
@@ -178,8 +189,9 @@ export default function Header() {
                             </Link>
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     )}
+                    </AnimatePresence>
                   </div>
                 );
               }
@@ -234,11 +246,18 @@ export default function Header() {
               )}
             </button>
           </div>
-        </nav>
+        </motion.nav>
 
         {/* Mobile Dropdown Card */}
+        <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="lg:hidden pointer-events-auto mt-2 rounded-3xl bg-white/95 backdrop-blur-xl border border-teal-deep/20 shadow-2xl p-6 max-h-[calc(100vh-100px)] overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:hidden pointer-events-auto mt-2 rounded-3xl bg-white/95 backdrop-blur-xl border border-teal-deep/20 shadow-2xl p-6 max-h-[calc(100vh-100px)] overflow-y-auto"
+          >
             <div className="space-y-2 mb-6">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
@@ -303,8 +322,9 @@ export default function Header() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </header>
   );

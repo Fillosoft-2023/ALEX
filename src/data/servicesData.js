@@ -7,8 +7,8 @@ export const servicesData = [
     tagline: "Complete Hospital Building Projects From Ground Up to Commissioning",
     heroImage: "/Hospital Construction & Turnkey Execution.jpg",
     cardImage: "/hospital-construction-main.jpg",
-    summary: "From concept to commissioning, we deliver turnkey solutions tailored for hospitals, nursing homes, and clinical complexes across Northeast India.",
-    overview: "Alex Healthcare System undertakes complete civil, structural, architectural, and MEP execution for healthcare facilities of 50 to 100+ bed capacities. We eliminate multi-vendor friction by taking single-point responsibility for safety compliance, structural engineering, infection control zoning, and clinical workflow optimization.",
+    summary: "From concept to commissioning, we deliver end-to-end solutions tailored for hospitals, nursing homes, and clinical complexes across Northeast India.",
+    overview: "Alex Healthcare System undertakes complete civil, structural, architectural, and MEP execution for healthcare facilities of 3100+ bed capacities. We eliminate multi-vendor friction by taking single-point responsibility for safety compliance, structural engineering, infection control zoning, and clinical workflow optimization.",
     keyPoints: [
       "Civil & Structural Healthcare Engineering",
       "Specialized Infection Control Zoning & Clean corridors",
@@ -29,7 +29,7 @@ export const servicesData = [
         desc: "Engineered specifically to support heavy medical machinery, vibration-sensitive imaging suites, and negative-pressure isolation wards."
       },
       {
-        title: "Turnkey Project Management",
+        title: "End-to-End Project Management",
         desc: "Dedicated on-site project directors managing vendor coordination, material quality testing, and safety protocols to ensure on-schedule delivery."
       },
       {
@@ -38,7 +38,7 @@ export const servicesData = [
       }
     ],
     benefits: [
-      "Single-point turnkey accountability reduces project execution risks and overheads",
+      "Single-point accountability reduces project execution risks and overheads",
       "Specialized healthcare layouts prevent costly structural retrofitting post-construction",
       "Deep regional experience navigating Northeast Indian logistical and regulatory landscapes"
     ],
@@ -78,7 +78,7 @@ export const servicesData = [
         desc: "Floor-clearance design utilizing articulated ceiling pendants for anesthesia machines, patient monitors, and endoscopy towers."
       },
       {
-        title: "Turnkey Testing & Validation",
+        title: "Comprehensive Testing & Validation",
         desc: "Comprehensive particle count testing, smoke pattern airflow visualization, and bacterial swab certifications prior to clinical handover."
       }
     ],
@@ -142,7 +142,7 @@ export const servicesData = [
     tagline: "Rapid-Response Critical Care Environments for 24/7 Intensive Patient Care",
     heroImage: "/heroa-bg.jpg",
     cardImage: "/healthplanetnagao1.webp",
-    summary: "Turnkey intensive care unit setups featuring modular bed head panels, central monitoring stations, isolation pods, and infection control scrub zones.",
+    summary: "Advanced intensive care unit setups featuring modular bed head panels, central monitoring stations, isolation pods, and infection control scrub zones.",
     overview: "Critical care units demand an infrastructure that empowers clinical teams to act without hesitation. Alex Healthcare System builds adult, pediatric, and neonatal ICUs engineered for ergonomics, acoustic comfort, uninterrupted emergency power, and continuous vital monitoring.",
     keyPoints: [
       "Custom Extruded Aluminum Bed Head Panels",
@@ -259,7 +259,7 @@ export const servicesData = [
       },
       {
         title: "Financial & CapEx Optimization",
-        desc: "Clear itemized cost estimations preventing project cost overruns during turnkey execution."
+        desc: "Clear itemized cost estimations preventing project cost overruns during project execution."
       }
     ],
     benefits: [

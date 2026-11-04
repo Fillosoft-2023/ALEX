@@ -3,7 +3,7 @@ export const projectsData = [
     id: "0",
     slug: "star-hospital-hojai",
     title: "Star Hospital, Hojai",
-    subtitle: "Turnkey Hospital Development & Medical Gas Pipeline Installation",
+    subtitle: "Full-Scale Hospital Development & Medical Gas Pipeline Installation",
     location: "Hojai, Assam",
     client: "Star Hospital Group",
     date: "12 April 2018",
@@ -15,7 +15,7 @@ export const projectsData = [
       {
         src: "/star1.png",
         title: "Star Hospital Building Facade",
-        caption: "70-bed turnkey multi-speciality hospital development in Hojai, Assam"
+        caption: "70-bed multi-speciality hospital development in Hojai, Assam"
       },
       {
         src: "/heroa-bg.jpg",
@@ -24,11 +24,11 @@ export const projectsData = [
       },
       {
         src: "/Hospital Construction & Turnkey Execution.jpg",
-        title: "Turnkey Execution & Clinical Zoning",
+        title: "Civil Execution & Clinical Zoning",
         caption: "Complete civil architecture, modular OT and medical gas pipeline commissioning"
       }
     ],
-    summary: "Turnkey hospital development including civil construction, full medical gas pipeline network, and modular operating theatre delivered on schedule.",
+    summary: "Comprehensive hospital development including civil construction, full medical gas pipeline network, and modular operating theatre delivered on schedule.",
     description: "Star Hospital in Hojai stands as a benchmark healthcare infrastructure project executed end-to-end by Alex Healthcare System. The scope encompassed ground-up civil engineering, architectural zoning, integrated medical gas pipelines (oxygen, vacuum, medical air), a fully functional modular OT, and a dedicated ICU unit with bed head paneling.",
     scopeList: [
       "Complete hospital building civil construction & architectural zoning",
@@ -207,7 +207,7 @@ export const projectsData = [
     id: "4",
     slug: "nagaon-metro-hospital",
     title: "Nagaon Metro Hospital & Research Centre",
-    subtitle: "Turnkey Single Modular OT Suite with Anti-Microbial Flooring",
+    subtitle: "Modular Operating Theatre Suite with Anti-Microbial Flooring",
     location: "Nagaon, Assam",
     client: "Nagaon Metro Hospital & Research Centre",
     date: "22 September 2021",
@@ -282,7 +282,7 @@ export const projectsData = [
     summary: "One of Northeast India's premier surgical infrastructure projects featuring six full modular OTs, central scrub zones, and advanced cleanroom zoning.",
     description: "As one of Northeast India’s premier tertiary healthcare hubs, Health City Hospital in Guwahati entrusted Alex Healthcare System with one of the region’s largest surgical facility projects: the complete engineering and installation of six full modular operating theatres.",
     scopeList: [
-      "Simultaneous turnkey execution of six distinct modular operating theatres",
+      "Simultaneous engineering and execution of six distinct modular operating theatres",
       "Custom laminar airflow ceiling systems calibrated for major multi-speciality procedures",
       "Integrated stainless steel surgical scrub corridors and sterile storage pass boxes",
       "Dual ceiling-mounted motorized pendants with high-definition display arms",
@@ -369,7 +369,7 @@ export const projectsData = [
       },
       {
         src: "/Hospital Construction & Turnkey Execution.jpg",
-        title: "Turnkey Execution & Commissioning",
+        title: "Commissioning & Validation Testing",
         caption: "Comprehensive validation testing and handover certification"
       }
     ],

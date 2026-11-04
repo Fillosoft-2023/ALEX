@@ -1,10 +1,34 @@
-import { Inter, Manrope } from 'next/font/google';
+import { Cormorant_Garamond, Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import FloatingContact from '@/components/layout/FloatingContact';
+import FloatingSocials from '@/components/layout/FloatingSocials';
+import RouteLoader from '@/components/layout/RouteLoader';
 import { companyData } from '@/data/companyData';
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jakarta',
+});
 
 const mephisto = localFont({
   src: [
@@ -33,18 +57,6 @@ const pierknife = localFont({
   src: './fonts/Pierknife-Regular.otf',
   variable: '--font-pierknife',
   display: 'swap',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-});
-
-const manrope = Manrope({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-manrope',
 });
 
 export const metadata = {
@@ -161,20 +173,22 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${manrope.variable} ${mephisto.variable} ${chavalard.variable} ${pierknife.variable} scroll-smooth`}>
+    <html lang="en" suppressHydrationWarning className={`${cormorant.variable} ${playfair.variable} ${plusJakarta.variable} ${mephisto.variable} ${chavalard.variable} ${pierknife.variable} scroll-smooth`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="bg-ivory text-charcoal-green antialiased min-h-screen flex flex-col font-sans">
+      <body suppressHydrationWarning className="bg-ivory text-charcoal-green antialiased min-h-screen flex flex-col font-sans">
+        <RouteLoader />
         <Header />
         <main className="flex-1">
           {children}
         </main>
         <Footer />
         <FloatingContact />
+        <FloatingSocials />
       </body>
     </html>
   );

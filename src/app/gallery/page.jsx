@@ -36,8 +36,8 @@ export default function GalleryPage() {
         />
 
         {/* Ambient Warm Glows */}
-        <div className="absolute -top-32 -left-32 w-[34rem] h-[34rem] rounded-full bg-sage/40 blur-[90px]" />
-        <div className="absolute top-20 right-0 w-[30rem] h-[30rem] rounded-full bg-coral-accent/15 blur-[100px]" />
+        <div className="absolute -top-32 -left-32 w-[34rem] h-[34rem] rounded-full bg-sage/40 blur-[90px] animate-floatSlow" />
+        <div className="absolute top-20 right-0 w-[30rem] h-[30rem] rounded-full bg-coral-accent/15 blur-[100px] animate-floatSlowReverse" />
         <div className="absolute top-1/2 left-1/4 w-[36rem] h-[36rem] rounded-full bg-teal-deep/10 blur-[120px]" />
 
         {/* Gentle Vignette Fade at bottom */}
@@ -45,7 +45,7 @@ export default function GalleryPage() {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16 sm:pb-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16 sm:pb-24 anim-view">
         
         {/* Unified Hero Header Section */}
         <div className="max-w-4xl mb-8 sm:mb-10 space-y-4">
@@ -100,7 +100,7 @@ export default function GalleryPage() {
             <div className="space-y-2 text-center md:text-left max-w-2xl">
               <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-sage">
                 <ShieldCheck className="w-4 h-4 text-coral-accent" />
-                <span>Turnkey Healthcare Infrastructure Partner</span>
+                <span>Integrated Healthcare Infrastructure Partner</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 Planning or Upgrading a Hospital Facility?

@@ -3,7 +3,7 @@ export const companyData = {
   legalName: "Alex Healthcare System",
   tagline: "Building the Infrastructure Behind Better Healthcare",
   shortDesc: "Trusted healthcare infrastructure development and hospital engineering partner across Northeast India and beyond.",
-  fullDesc: "Alex Healthcare System delivers integrated turnkey solutions for hospitals and healthcare facilities—spanning architecture, turnkey civil construction, modular operating theatres, medical gas pipeline systems (MGPS), critical care ICU infrastructure, and regulatory licensing support.",
+  fullDesc: "Alex Healthcare System delivers integrated end-to-end solutions for hospitals and healthcare facilities—spanning architectural planning, civil construction, modular operating theatres, medical gas pipeline systems (MGPS), critical care ICU infrastructure, and regulatory licensing support.",
   
   // Verified Contact Details
   contact: {
@@ -30,10 +30,10 @@ export const companyData = {
 
   // Verified Metrics
   stats: [
-    { value: "12+", label: "Years of Industry Experience", desc: "Specialized in hospital engineering" },
-    { value: "250+", label: "Completed Healthcare Projects", desc: "Across Northeast India & Eastern region" },
-    { value: "100+", label: "Max Bed Capacity Facilities", desc: "Full-scale multi-speciality hospitals" },
-    { value: "100%", label: "Turnkey Accountability", desc: "Concept, engineering to commissioning" }
+    { value: "6+", label: "Years of Industry Experience", desc: "Specialized in hospital engineering" },
+    { value: "30+", label: "Completed Healthcare Projects", desc: "Across Northeast India & Eastern region" },
+    { value: "100+", label: "Ongoing Healthcare Projects", desc: "Active clinical installations & builds" },
+    { value: "3100+", label: "Bed Capacity Facilities", desc: "3,100+ bed capacity infrastructure" }
   ],
 
   // Partner Firm
@@ -54,6 +54,11 @@ export const companyData = {
       name: "Instagram",
       url: "https://www.instagram.com/alex.healthcaresystem?igsh=ZHl1YXNiZzB5aTRu&utm_source=qr",
       ariaLabel: "Alex Healthcare Instagram Profile"
+    },
+    {
+      name: "WhatsApp",
+      url: "https://wa.me/917002394679",
+      ariaLabel: "Alex Healthcare WhatsApp Chat"
     },
     {
       name: "LinkedIn",

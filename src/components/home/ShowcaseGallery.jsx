@@ -6,7 +6,7 @@ export default function ShowcaseGallery() {
   const showcaseItems = [
     {
       title: "Hospital Civil Construction & Architecture",
-      category: "Turnkey Execution",
+      category: "Civil & Infrastructure",
       image: "/hospital-construction-main.jpg",
       alt: "Hospital construction framework and architectural planning in progress",
       span: "lg:col-span-8 lg:row-span-2",

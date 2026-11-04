@@ -43,12 +43,17 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
-        display: ['var(--font-mephisto)', 'Mephisto', 'var(--font-chavalard)', 'Chavalard', 'sans-serif'],
+        sans: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        body: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        cormorant: ['var(--font-cormorant)', 'Cormorant Garamond', 'Georgia', 'serif'],
+        serif: ['var(--font-cormorant)', 'Cormorant Garamond', 'Georgia', 'serif'],
+        heading: ['var(--font-cormorant)', 'Cormorant Garamond', 'var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
+        display: ['var(--font-cormorant)', 'Cormorant Garamond', 'var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
+        playfair: ['var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
         mephisto: ['var(--font-mephisto)', 'Mephisto', 'sans-serif'],
         chavalard: ['var(--font-chavalard)', 'Chavalard', 'sans-serif'],
-        manrope: ['var(--font-manrope)', 'Manrope', 'sans-serif'],
         pierknife: ['var(--font-pierknife)', 'Pierknife', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       boxShadow: {
         'subtle': '0 2px 10px rgba(36, 54, 49, 0.04)',
@@ -68,7 +73,10 @@ module.exports = {
         'xl': '0.875rem',
         '2xl': '1.25rem',
         '3xl': '1.75rem',
-      }
+      },
+      scale: {
+        108: '1.08',
+      },
     },
   },
   plugins: [],

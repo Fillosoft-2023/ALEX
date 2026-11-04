@@ -3,16 +3,29 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Phone, MessageSquare, X, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { companyData } from '@/data/companyData';
 
 export default function FloatingContact() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end space-y-3">
+    <motion.div
+      initial={{ opacity: 0, y: 28, scale: 0.92 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay: 0.45, type: 'spring', stiffness: 260, damping: 22 }}
+      className="fixed bottom-6 right-6 z-40 flex flex-col items-end space-y-3"
+    >
       {/* Expandable Quick Card */}
+      <AnimatePresence>
       {isOpen && (
-        <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-float border border-teal-deep/20 p-5 w-80 mb-2 animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <motion.div
+          initial={{ opacity: 0, y: 16, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 12, scale: 0.96 }}
+          transition={{ duration: 0.22 }}
+          className="bg-white/95 backdrop-blur-md rounded-2xl shadow-float border border-teal-deep/20 p-5 w-80 mb-2"
+        >
           <div className="flex items-center justify-between pb-3 border-b border-teal-deep/10">
             <div className="flex items-center space-x-2">
               <span className="w-2.5 h-2.5 rounded-full bg-forest animate-pulse"></span>
@@ -58,8 +71,9 @@ export default function FloatingContact() {
           <div className="pt-2 text-[10px] text-charcoal-green/60 text-center">
             Guwahati Head Office: Mon–Fri, 9am–6pm
           </div>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
 
       {/* Floating Action Buttons */}
       <div className="flex items-center space-x-2">
@@ -81,6 +95,6 @@ export default function FloatingContact() {
           <span className="text-xs font-bold tracking-wide">Quick Inquiry</span>
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }

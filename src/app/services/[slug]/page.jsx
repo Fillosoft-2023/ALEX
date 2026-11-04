@@ -58,13 +58,13 @@ export default async function ServiceDetailPage({ params }) {
             alt={service.title}
             fill
             priority
-            className="object-cover object-center"
+            className="object-cover object-center animate-kenburns"
             sizes="100vw"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal-green via-charcoal-green/90 to-transparent z-0" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 anim-view">
           <div className="max-w-3xl space-y-4">
             
             <Link
@@ -94,7 +94,7 @@ export default async function ServiceDetailPage({ params }) {
 
       {/* 2. Overview & Scope Grid */}
       <section className="w-full py-16 sm:py-24 border-b border-teal-deep/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 anim-view">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             {/* Left Content (8 cols) */}

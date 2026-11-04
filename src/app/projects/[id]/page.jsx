@@ -56,13 +56,13 @@ export default async function ProjectDetailPage({ params }) {
             alt={project.title}
             fill
             priority
-            className="object-cover object-center"
+            className="object-cover object-center animate-kenburns"
             sizes="100vw"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal-green via-charcoal-green/90 to-charcoal-green/75 z-0" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 anim-view">
           <div className="max-w-3xl space-y-4">
             
             <Link
@@ -96,7 +96,7 @@ export default async function ProjectDetailPage({ params }) {
 
       {/* 2. Metadata Strip */}
       <section className="w-full bg-white border-b border-teal-deep/10 py-5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 anim-view">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs text-charcoal-green">
             <div>
               <span className="text-charcoal-green/60 uppercase tracking-wider font-semibold block text-[10px]">Client / Organization</span>
@@ -120,7 +120,7 @@ export default async function ProjectDetailPage({ params }) {
 
       {/* 3. Detailed Scope & Project Highlights */}
       <section className="w-full py-16 sm:py-24 border-b border-teal-deep/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 anim-view">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             {/* Left Content (8 cols) */}
@@ -159,7 +159,7 @@ export default async function ProjectDetailPage({ params }) {
                     />
                   </div>
                   <p className="text-[11px] text-charcoal-green/60 text-center">
-                    Official video documentation of {project.title} facility and turnkey medical gas installation.
+                    Official video documentation of {project.title} facility and complete medical gas installation.
                   </p>
                 </div>
               )}
@@ -227,7 +227,7 @@ export default async function ProjectDetailPage({ params }) {
                   Execute Your Project With Proven Engineering
                 </h3>
                 <p className="text-xs text-ivory/80 leading-relaxed">
-                  Our project team can deliver identical turnkey engineering precision for your hospital or clinical expansion.
+                  Our project team can deliver identical engineering precision and execution for your hospital or clinical expansion.
                 </p>
 
                 <div className="pt-2">

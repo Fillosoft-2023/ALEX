@@ -21,32 +21,32 @@ export default function TrustStrip() {
     {
       id: 0,
       badge: "Heritage",
-      metric: "12+ Years",
-      title: "12+ Years Experience",
+      metric: "6+ Years",
+      title: "6+ Years Experience",
       desc: "Specialized in hospital civil engineering, MEP systems, and regional healthcare compliance.",
       icon: Award
     },
     {
       id: 1,
       badge: "Proven Portfolio",
-      metric: "250+ Builds",
-      title: "250+ Completed Projects",
-      desc: "Proven execution across Assam, Northeast India, Siliguri, and West Bengal.",
+      metric: "30+ Builds",
+      title: "30+ Completed Projects",
+      desc: "30+ completed projects with 100+ ongoing healthcare infrastructure builds across Northeast India.",
       icon: Building2
     },
     {
       id: 2,
       badge: "Hospital Scale",
-      metric: "70-100+ Beds",
-      title: "70 to 100+ Bed Capacities",
-      desc: "Delivering turnkey infrastructure for multi-speciality tertiary hospitals and clinical centers.",
+      metric: "30-100+ Beds",
+      title: "30 to 100+ Bed Capacities",
+      desc: "Delivering complete infrastructure for 30 to 100+ bed multi-speciality tertiary hospitals and clinical centers.",
       icon: Layers
     },
     {
       id: 3,
       badge: "Single Accountability",
       metric: "End-to-End",
-      title: "Single-Point Turnkey Delivery",
+      title: "Single-Point Project Delivery",
       desc: "From architectural planning & civil construction to MGPS and modular OT commissioning.",
       icon: Wrench
     },
@@ -142,34 +142,50 @@ export default function TrustStrip() {
   const cylinderRotation = -(activeIndex * anglePerCard) + (dragOffset * 0.15);
 
   return (
-    <section className="w-full bg-sage/35 border-b border-teal-deep/10 py-12 sm:py-16 overflow-hidden relative">
-      {/* Decorative subtle ambient lights */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-white/40 rounded-full blur-3xl pointer-events-none" />
+    <section className="w-full bg-gradient-to-b from-[#d7e9dd] via-[#cee2d5] to-[#d7e9dd] border-b border-[#1b5b4a]/20 py-14 sm:py-20 overflow-hidden relative">
+      {/* Decorative Blueprint CAD Grid & Ambient Lighting */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
+        {/* Subtle CAD Drafting Grid with richer contrast */}
+        <div 
+          className="absolute inset-0 opacity-[0.4]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(23, 79, 73, 0.12) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(23, 79, 73, 0.12) 1px, transparent 1px)
+            `,
+            backgroundSize: '36px 36px'
+          }}
+        />
+
+        {/* Floating Ambient Glow Orbs */}
+        <div className="absolute -top-12 -left-12 w-96 h-96 rounded-full bg-teal-deep/15 blur-3xl pointer-events-none animate-floatSlow" />
+        <div className="absolute -bottom-16 right-0 w-96 h-96 rounded-full bg-[#c8b082]/20 blur-3xl pointer-events-none animate-floatSlowReverse" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Strip Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-teal-deep/10 gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-[#1b5b4a]/20 gap-4">
           <div>
-            <div className="inline-flex items-center space-x-1.5 text-[11px] font-bold uppercase tracking-wider text-teal-deep bg-sage/60 px-3 py-1 rounded-full mb-1">
-              <Sparkles className="w-3.5 h-3.5 text-forest" />
-              <span>Verified Track Record &bull; Interactive 3D Showcase</span>
+            <div className="inline-flex items-center space-x-1.5 text-[11px] font-bold uppercase tracking-wider text-teal-deep bg-white/90 border border-teal-deep/25 px-3.5 py-1 rounded-full mb-2 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-coral-accent" />
+              <span className="font-jost tracking-widest">Verified Track Record &bull; Interactive 3D Credential Showcase</span>
             </div>
-            <h2 className="text-xl sm:text-3xl font-extrabold text-charcoal-green tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-charcoal-green tracking-tight font-serif">
               Trusted Healthcare Infrastructure Partner in Northeast India
             </h2>
           </div>
 
           <div className="flex items-center space-x-3">
-            <div className="hidden sm:flex items-center space-x-2 text-xs font-semibold text-charcoal-green/80 bg-white/80 px-4 py-2 rounded-xl border border-teal-deep/15 shadow-subtle">
+            <div className="hidden sm:flex items-center space-x-2 text-xs font-semibold text-charcoal-green/85 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl border border-teal-deep/20 shadow-subtle">
               <MapPin className="w-4 h-4 text-coral-accent" />
-              <span>Headquartered in Guwahati, Assam</span>
+              <span className="font-jost uppercase tracking-wider text-[11px]">Guwahati Headquarters &bull; Field Execution Desk</span>
             </div>
 
             {/* Play/Pause toggle */}
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="p-2.5 rounded-xl bg-white/80 hover:bg-white text-charcoal-green border border-teal-deep/15 transition-all text-xs font-semibold flex items-center space-x-1.5 shadow-subtle"
+              className="p-2.5 rounded-xl bg-white hover:bg-ivory text-charcoal-green border border-teal-deep/20 transition-all text-xs font-semibold flex items-center space-x-1.5 shadow-subtle cursor-pointer hover:border-coral-accent/40"
               title={isPlaying ? "Pause 3D rotation" : "Resume 3D rotation"}
               aria-label={isPlaying ? "Pause 3D rotation" : "Resume 3D rotation"}
             >
@@ -220,11 +236,11 @@ export default function TrustStrip() {
                     e.stopPropagation();
                     setActiveIndex(index);
                   }}
-                  className={`absolute inset-0 rounded-3xl p-5 sm:p-7 flex flex-col justify-between transition-all duration-500 cursor-pointer ${
+                  className={`absolute inset-0 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-500 cursor-pointer overflow-hidden gpu-accelerate ${
                     isFront
-                      ? 'bg-white shadow-float border-2 border-teal-deep/30 ring-4 ring-forest/10 opacity-100 z-30'
+                      ? 'bg-white shadow-elevated border-2 border-teal-deep/30 ring-4 ring-teal-deep/10 opacity-100 z-30'
                       : isAdjacent
-                      ? 'bg-white/85 shadow-card border border-teal-deep/15 opacity-80 backdrop-blur-sm z-20'
+                      ? 'bg-white/90 shadow-card border border-teal-deep/15 opacity-80 backdrop-blur-sm z-20'
                       : 'bg-white/60 shadow-subtle border border-teal-deep/10 opacity-40 backdrop-blur-md z-10 pointer-events-none'
                   }`}
                   style={{
@@ -233,27 +249,42 @@ export default function TrustStrip() {
                     WebkitBackfaceVisibility: 'hidden'
                   }}
                 >
+                  {/* Subtle top edge shimmer */}
+                  <div className={`absolute inset-x-0 top-0 h-[2px] ${
+                    isFront ? 'bg-gradient-to-r from-transparent via-amber-400/80 to-transparent' : 'bg-transparent'
+                  }`} />
+
+                  {/* Corner architectural ticks on active card */}
+                  {isFront && (
+                    <>
+                      <div className="absolute top-2 left-2 w-2 h-2 border-t border-l border-amber-500/70" />
+                      <div className="absolute top-2 right-2 w-2 h-2 border-t border-r border-amber-500/70" />
+                      <div className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-amber-500/70" />
+                      <div className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-amber-500/70" />
+                    </>
+                  )}
+
                   {/* Top Bar with Icon & Metric Badge */}
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <div className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-colors ${
-                        isFront ? 'bg-teal-deep text-white shadow-sm' : 'bg-sage/50 text-forest'
+                      <div className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all ${
+                        isFront ? 'bg-teal-deep text-white shadow-md ring-2 ring-amber-400/30' : 'bg-sage/50 text-forest'
                       }`}>
                         <Icon className={`w-5 h-5 ${isFront ? 'text-coral-accent' : 'text-forest'}`} />
                       </div>
 
-                      <span className={`text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full ${
-                        isFront ? 'bg-forest/15 text-forest border border-forest/30' : 'bg-sage/40 text-charcoal-green/70'
+                      <span className={`text-[11px] font-extrabold uppercase font-mono tracking-wider px-3 py-1 rounded-full ${
+                        isFront ? 'bg-teal-deep/10 text-teal-deep border border-teal-deep/30' : 'bg-sage/40 text-charcoal-green/70'
                       }`}>
                         {point.metric}
                       </span>
                     </div>
 
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-forest mb-1">
+                    <div className="text-[10px] font-bold uppercase tracking-widest font-jost text-forest mb-1">
                       {point.badge}
                     </div>
                     
-                    <h3 className={`font-extrabold text-base sm:text-lg leading-snug transition-colors ${
+                    <h3 className={`font-extrabold text-base sm:text-lg leading-snug font-serif transition-colors ${
                       isFront ? 'text-charcoal-green' : 'text-charcoal-green/85'
                     }`}>
                       {point.title}
@@ -262,18 +293,19 @@ export default function TrustStrip() {
 
                   {/* Description & Status */}
                   <div className="pt-3 border-t border-teal-deep/10">
-                    <p className="text-xs text-charcoal-green/75 leading-relaxed line-clamp-3">
+                    <p className="text-xs text-charcoal-green/80 leading-relaxed font-lora line-clamp-3">
                       {point.desc}
                     </p>
 
                     <div className="mt-3 flex items-center justify-between text-[11px] font-semibold text-teal-deep">
-                      <span className="flex items-center space-x-1">
+                      <span className="flex items-center space-x-1 font-jost tracking-wide">
                         <CheckCircle className="w-3.5 h-3.5 text-forest" />
-                        <span>Verified Spec</span>
+                        <span>Verified Standard</span>
                       </span>
                       {isFront && (
-                        <span className="text-coral-accent font-bold text-[10px] uppercase tracking-wider">
-                          Active Focus
+                        <span className="text-coral-accent font-bold text-[10px] uppercase font-jost tracking-widest flex items-center space-x-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-coral-accent animate-ping mr-1" />
+                          <span>Active Focus</span>
                         </span>
                       )}
                     </div>

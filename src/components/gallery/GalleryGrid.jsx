@@ -2,13 +2,15 @@
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { 
-  MapPin, 
-  ZoomIn, 
-  Sparkles, 
-  SlidersHorizontal,
-  Building,
-  CheckCircle2
+import {
+  MapPin,
+  ZoomIn,
+  Sparkles,
+  Building2,
+  Activity,
+  Layers,
+  CheckCircle2,
+  ArrowUpRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { galleryItems, galleryCategories } from '@/data/galleryData';
@@ -64,10 +66,10 @@ export default function GalleryGrid({
 
   return (
     <div className="w-full">
-      {/* Category Filter Tabs */}
+      {/* Category Filter Tabs with Architectural Frosted Styling */}
       {showFilters && (
-        <div className="mb-6 sm:mb-8">
-          <div className="flex items-center space-x-2 pb-2 overflow-x-auto no-scrollbar sm:flex-wrap sm:gap-2">
+        <div className="mb-8 sm:mb-10">
+          <div className="flex items-center space-x-2 pb-2 overflow-x-auto no-scrollbar sm:flex-wrap sm:gap-2.5">
             {galleryCategories.map((cat) => {
               const isActive = activeCategory === cat.id;
               const count = categoryCounts[cat.id] || 0;
@@ -76,19 +78,17 @@ export default function GalleryGrid({
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
                   type="button"
-                  className={`px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-teal-deep ${
-                    isActive
-                      ? 'bg-teal-deep text-white shadow-subtle ring-1 ring-teal-deep'
+                  className={`relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-teal-deep cursor-pointer font-jost uppercase tracking-wider ${isActive
+                      ? 'bg-teal-deep text-white shadow-elevated border border-amber-400/40'
                       : 'bg-white hover:bg-sage/40 text-charcoal-green/85 border border-teal-deep/15 shadow-xs'
-                  }`}
+                    }`}
                 >
                   {cat.id === 'asset-photos' && (
-                    <Sparkles className={`w-3.5 h-3.5 ${isActive ? 'text-coral-accent' : 'text-teal-deep'}`} />
+                    <Sparkles className={`w-3.5 h-3.5 ${isActive ? 'text-amber-300' : 'text-coral-accent'}`} />
                   )}
                   <span>{cat.name}</span>
-                  <span className={`text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-bold ${
-                    isActive ? 'bg-white/20 text-white' : 'bg-teal-deep/10 text-teal-deep'
-                  }`}>
+                  <span className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-mono font-bold transition-colors ${isActive ? 'bg-amber-400/30 text-amber-300' : 'bg-teal-deep/10 text-teal-deep'
+                    }`}>
                     {count}
                   </span>
                 </button>
@@ -98,78 +98,121 @@ export default function GalleryGrid({
         </div>
       )}
 
-      {/* Grid: 2 CARDS IN A ROW FOR MOBILE (grid-cols-2), 3 on md, 4 on lg */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6">
-        <AnimatePresence>
-          {filteredItems.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1, margin: '0px 0px -40px 0px' }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.65, delay: (index % 4) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              style={{ willChange: 'transform, opacity' }}
-              onClick={() => handleOpenLightbox(index)}
-              className="group relative cursor-pointer rounded-xl sm:rounded-2xl overflow-hidden bg-charcoal-green border border-teal-deep/15 shadow-subtle hover:shadow-float transition-shadow duration-300 focus:outline-none focus:ring-2 focus:ring-teal-deep"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleOpenLightbox(index);
-                }
-              }}
-              role="button"
-              aria-label={`View photo of ${item.title}`}
-            >
-              {/* Photo Box with aspect-[4/3] on mobile for clean 2-card fit */}
-              <div className="relative w-full aspect-[4/3] sm:aspect-[4/3] overflow-hidden">
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  className="object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                />
+      {/* Architectural Bento Masonry Gallery Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-7 auto-rows-[340px] sm:auto-rows-[380px]">
+        <AnimatePresence mode="popLayout">
+          {filteredItems.map((item, index) => {
+            // Determine Bento Spanning: Give featured / primary asset photos wider presence
+            const isWide = (activeCategory === 'all' || activeCategory === 'asset-photos') &&
+              (index === 0 || index === 5 || index === 10);
 
-                {/* Dark Contrast Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal-green/95 via-charcoal-green/35 to-black/15 group-hover:from-charcoal-green group-hover:via-charcoal-green/50 transition-colors" />
+            return (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.5, delay: (index % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                onClick={() => handleOpenLightbox(index)}
+                className={`group relative cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-[#133a33]/95 via-[#0e2c26]/95 to-[#081e1a]/98 shadow-[0_12px_36px_rgba(0,0,0,0.28)] hover:shadow-[0_24px_55px_rgba(21,94,99,0.38)] hover:border-amber-400/60 transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-amber-400 gpu-accelerate hover:-translate-y-1.5 flex flex-col justify-between ${isWide ? 'sm:col-span-2' : 'col-span-1'
+                  }`}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleOpenLightbox(index);
+                  }
+                }}
+                role="button"
+                aria-label={`View photo of ${item.title}`}
+              >
+                {/* Top Gold Shimmer Highlight on Hover */}
+                <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-30" />
 
-                {/* Top Badge (Asset / Category) */}
-                <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1 z-10 pointer-events-none">
+                {/* CAD Technical Crosshair Corners */}
+                <span className="absolute top-2.5 left-2.5 text-[9px] font-mono text-amber-400/40 group-hover:text-amber-400/90 transition-colors pointer-events-none z-20">+</span>
+                <span className="absolute top-2.5 right-2.5 text-[9px] font-mono text-amber-400/40 group-hover:text-amber-400/90 transition-colors pointer-events-none z-20">+</span>
+                <span className="absolute bottom-2.5 left-2.5 text-[9px] font-mono text-amber-400/40 group-hover:text-amber-400/90 transition-colors pointer-events-none z-20">+</span>
+                <span className="absolute bottom-2.5 right-2.5 text-[9px] font-mono text-amber-400/40 group-hover:text-amber-400/90 transition-colors pointer-events-none z-20">+</span>
+
+                {/* Main Full-Bleed Photograph */}
+                <div className="absolute inset-0 z-0 bg-[#0a1e19] overflow-hidden">
+                  <Image
+                    src={item.src}
+                    alt={item.title}
+                    fill
+                    className="object-cover object-center group-hover:scale-106 transition-transform duration-700 ease-out"
+                    sizes={isWide ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"}
+                  />
+
+                  {/* Multi-layered Architectural Contrast Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#081e1a] via-[#0e2c26]/60 to-black/35 group-hover:via-[#0e2c26]/50 transition-colors duration-500 pointer-events-none" />
+
+                  {/* Subtle Blueprint Mesh Accent on Hover */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      backgroundImage: `linear-gradient(to right, rgba(255,202,40,0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,202,40,0.3) 1px, transparent 1px)`,
+                      backgroundSize: '32px 32px'
+                    }}
+                  />
+                </div>
+
+                {/* Top Overlay Badges */}
+                <div className="relative z-10 p-3.5 sm:p-4 flex items-center justify-between gap-2 pointer-events-none">
                   {item.isPrimaryAsset ? (
-                    <span className="inline-flex items-center space-x-0.5 sm:space-x-1 px-1.5 sm:px-2.5 py-0.5 rounded-md text-[9px] sm:text-[11px] font-extrabold uppercase tracking-wider bg-coral-accent/95 text-white shadow-sm backdrop-blur-sm">
-                      <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                      <span>Asset Photo</span>
+                    <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold tracking-wider uppercase bg-teal-deep/90 text-amber-300 backdrop-blur-md border border-amber-400/40 shadow-sm">
+                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      <span>Verified Facade</span>
                     </span>
                   ) : (
-                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-black/60 text-white/90 backdrop-blur-sm">
-                      {item.tag}
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase bg-black/60 text-white/95 backdrop-blur-md border border-white/15">
+                      {item.tag || item.category}
                     </span>
                   )}
 
-                  {/* Zoom Icon indicator */}
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:scale-110">
-                    <ZoomIn className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                  </div>
+                  <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/55 text-ivory backdrop-blur-md border border-white/15 shadow-sm">
+                    <MapPin className="w-3 h-3 text-amber-400 flex-shrink-0" />
+                    <span>{item.location}</span>
+                  </span>
                 </div>
 
-                {/* Bottom Overlay Info (Optimized for 2 cards in a row on mobile) */}
-                <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 z-10 space-y-0.5 sm:space-y-1 text-white">
-                  <div className="flex items-center space-x-1 text-[10px] sm:text-xs font-semibold text-coral-accent">
-                    <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0" />
-                    <span className="truncate">{item.location}</span>
+                {/* Bottom Overlay Content */}
+                <div className="relative z-10 p-4 sm:p-5 space-y-2.5">
+                  {/* Subtitle / Department tag */}
+                  <div className="flex items-center space-x-2 text-xs font-mono text-amber-300/90 uppercase tracking-widest">
+                    <Building2 className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+                    <span className="truncate">{item.subtitle}</span>
                   </div>
-                  <h3 className="text-xs sm:text-sm font-bold text-white group-hover:text-sage transition-colors leading-snug line-clamp-1 sm:line-clamp-2">
+
+                  {/* Main Title */}
+                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white group-hover:text-amber-200 transition-colors leading-snug line-clamp-2 font-serif">
                     {item.title}
                   </h3>
-                  <p className="text-[10px] sm:text-[11px] text-ivory/70 line-clamp-1 hidden sm:block">
-                    {item.subtitle}
-                  </p>
+
+                  {/* Wide Card Highlight Snippet */}
+                  {isWide && item.caption && (
+                    <p className="text-xs text-ivory/80 line-clamp-2 font-lora leading-relaxed hidden sm:block">
+                      {item.caption}
+                    </p>
+                  )}
+
+                  {/* Action Bar with Inspect Trigger */}
+                  <div className="pt-2 border-t border-white/15 flex items-center justify-between text-xs">
+                    <div className="flex items-center space-x-1.5 text-amber-300 font-bold font-jost uppercase tracking-wider text-[11px] group-hover:text-white transition-colors">
+                      <ZoomIn className="w-3.5 h-3.5" />
+                      <span>Inspect High-Res</span>
+                    </div>
+
+                    <div className="w-7 h-7 rounded-full bg-white/15 text-white group-hover:bg-amber-400 group-hover:text-charcoal-green group-hover:border-amber-400 border border-white/20 flex items-center justify-center transition-all duration-300 shadow-sm">
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </div>
 
