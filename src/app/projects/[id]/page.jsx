@@ -16,16 +16,18 @@ import {
 } from 'lucide-react';
 import { projectsData } from '@/data/projectsData';
 import ProjectGallery from '@/components/projects/ProjectGallery';
+import { getProjects, getProjectBySlug } from '@/lib/api';
 
 export async function generateStaticParams() {
-  return projectsData.map((project) => ({
-    id: project.id,
+  const projects = await getProjects();
+  return projects.map((project) => ({
+    id: String(project.id),
   }));
 }
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const project = projectsData.find((p) => p.id === id);
+  const project = await getProjectBySlug(id);
   if (!project) return { title: 'Project Not Found' };
 
   return {
@@ -36,14 +38,15 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectDetailPage({ params }) {
   const { id } = await params;
-  const project = projectsData.find((p) => p.id === id);
+  const project = await getProjectBySlug(id);
 
   if (!project) {
     notFound();
   }
 
+  const allProjects = await getProjects();
   // Related projects
-  const otherProjects = projectsData.filter((p) => p.id !== project.id).slice(0, 3);
+  const otherProjects = allProjects.filter((p) => String(p.id) !== String(project.id)).slice(0, 3);
 
   return (
     <div className="w-full bg-ivory">
@@ -165,19 +168,21 @@ export default async function ProjectDetailPage({ params }) {
               )}
 
               {/* Scope of Work */}
-              <div className="bg-white rounded-2xl p-7 sm:p-8 border border-teal-deep/15 shadow-subtle space-y-6">
-                <h3 className="text-lg sm:text-xl font-bold text-charcoal-green border-b border-teal-deep/10 pb-3">
-                  Delivered Infrastructure Scope
-                </h3>
-                <ul className="space-y-3">
-                  {project.scopeList.map((item, idx) => (
-                    <li key={idx} className="flex items-start space-x-3 text-xs sm:text-sm text-charcoal-green/80 leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-forest mt-0.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {project.scopeList && project.scopeList.length > 0 && (
+                <div className="bg-white rounded-2xl p-7 sm:p-8 border border-teal-deep/15 shadow-subtle space-y-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-charcoal-green border-b border-teal-deep/10 pb-3">
+                    Delivered Infrastructure Scope
+                  </h3>
+                  <ul className="space-y-3">
+                    {project.scopeList.map((item, idx) => (
+                      <li key={idx} className="flex items-start space-x-3 text-xs sm:text-sm text-charcoal-green/80 leading-relaxed">
+                        <CheckCircle2 className="w-4 h-4 text-forest mt-0.5 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Verified Client Testimonial (if available for this project) */}
               {project.testimonial && (
@@ -204,19 +209,21 @@ export default async function ProjectDetailPage({ params }) {
             <div className="lg:col-span-4 space-y-8">
               
               {/* Project Highlights Card */}
-              <div className="bg-white rounded-2xl p-6 border border-teal-deep/15 shadow-subtle space-y-4">
-                <div className="text-xs font-bold uppercase tracking-wider text-teal-deep">
-                  Engineering Benchmarks
+              {project.highlights && project.highlights.length > 0 && (
+                <div className="bg-white rounded-2xl p-6 border border-teal-deep/15 shadow-subtle space-y-4">
+                  <div className="text-xs font-bold uppercase tracking-wider text-teal-deep">
+                    Engineering Benchmarks
+                  </div>
+                  <div className="space-y-3">
+                    {project.highlights.map((h, idx) => (
+                      <div key={idx} className="p-3 bg-ivory rounded-xl border border-teal-deep/10 flex items-center justify-between">
+                        <span className="text-xs text-charcoal-green/70">{h.label}</span>
+                        <strong className="text-xs font-bold text-teal-deep">{h.value}</strong>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-3">
-                  {project.highlights.map((h, idx) => (
-                    <div key={idx} className="p-3 bg-ivory rounded-xl border border-teal-deep/10 flex items-center justify-between">
-                      <span className="text-xs text-charcoal-green/70">{h.label}</span>
-                      <strong className="text-xs font-bold text-teal-deep">{h.value}</strong>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              )}
 
               {/* Inquiry Action Box */}
               <div className="bg-teal-deep text-white rounded-3xl p-7 shadow-elevated space-y-4">

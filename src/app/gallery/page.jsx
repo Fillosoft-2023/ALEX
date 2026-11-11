@@ -2,13 +2,16 @@ import Link from 'next/link';
 import { Camera, ArrowRight, PhoneCall, Building2, ShieldCheck, Sparkles } from 'lucide-react';
 import GalleryGrid from '@/components/gallery/GalleryGrid';
 import { galleryItems } from '@/data/galleryData';
+import { getGalleryItems } from '@/lib/api';
 
 export const metadata = {
   title: 'Project Photo Gallery | Alex Healthcare System | Hospital Facades & MGPS Infrastructure',
   description: 'Explore on-site photo documentation of healthcare facilities, hospital facades (IHR Guwahati, Kapili Hospital, Metro Hospital, Health Planet Hospital Nagaon), modular operating theatres, and medical gas pipeline networks in Northeast India.',
 };
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const items = await getGalleryItems();
+  const count = items && items.length > 0 ? items.length : galleryItems.length;
   return (
     <div className="w-full bg-[#faf8f2] min-h-screen relative overflow-hidden">
       
@@ -53,7 +56,7 @@ export default function GalleryPage() {
           {/* Top Pill Badge */}
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-teal-deep/20 text-teal-deep text-xs font-semibold tracking-wide shadow-subtle backdrop-blur-md">
             <Camera className="w-3.5 h-3.5 text-coral-accent" />
-            <span>Verified Healthcare Infrastructure &bull; {galleryItems.length} Visual Records</span>
+            <span>Verified Healthcare Infrastructure &bull; {count} Visual Records</span>
           </div>
 
           {/* Main Title */}
@@ -90,6 +93,7 @@ export default function GalleryPage() {
         <GalleryGrid 
           initialCategory="all" 
           showFilters={true} 
+          initialItems={items}
         />
 
         {/* Bottom Consultation Call-To-Action Banner */}

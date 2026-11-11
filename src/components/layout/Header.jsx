@@ -61,6 +61,7 @@ export default function Header() {
     },
     { name: 'Projects', href: '/projects' },
     { name: 'Gallery', href: '/gallery' },
+    { name: 'Blogs', href: '/blogs' },
     { name: 'Contact', href: '/contact' }
   ];
 

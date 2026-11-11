@@ -7,20 +7,21 @@ import Image from 'next/image';
 import { MapPin, ArrowRight, Building2, Calendar, CheckCircle2, Filter, Sparkles } from 'lucide-react';
 import { projectsData } from '@/data/projectsData';
 
-export default function ProjectsGrid() {
+export default function ProjectsGrid({ initialProjects = null }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const allProjects = initialProjects && initialProjects.length > 0 ? initialProjects : projectsData;
 
   const categories = [
-    { key: 'all', label: 'All Projects', count: projectsData.length },
-    { key: 'turnkey', label: 'Turnkey Construction', count: projectsData.filter(p => p.categoryKey === 'turnkey').length },
-    { key: 'mgps', label: 'Gas Systems & MGPS', count: projectsData.filter(p => p.categoryKey === 'mgps').length },
-    { key: 'ot', label: 'Modular OT', count: projectsData.filter(p => p.categoryKey === 'ot').length },
-    { key: 'icu', label: 'ICU & Critical Care', count: projectsData.filter(p => p.categoryKey === 'icu').length },
+    { key: 'all', label: 'All Projects', count: allProjects.length },
+    { key: 'turnkey', label: 'Turnkey Construction', count: allProjects.filter(p => p.categoryKey === 'turnkey').length },
+    { key: 'mgps', label: 'Gas Systems & MGPS', count: allProjects.filter(p => p.categoryKey === 'mgps').length },
+    { key: 'ot', label: 'Modular OT', count: allProjects.filter(p => p.categoryKey === 'ot').length },
+    { key: 'icu', label: 'ICU & Critical Care', count: allProjects.filter(p => p.categoryKey === 'icu').length },
   ];
 
   const filteredProjects = selectedCategory === 'all'
-    ? projectsData
-    : projectsData.filter(p => p.categoryKey === selectedCategory);
+    ? allProjects
+    : allProjects.filter(p => p.categoryKey === selectedCategory);
 
   return (
     <div className="space-y-12">

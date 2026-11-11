@@ -3,6 +3,7 @@ import Hero from '@/components/home/Hero';
 import TrustStrip from '@/components/home/TrustStrip';
 import ServicesOverview from '@/components/home/ServicesOverview';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
+import { getProjects } from '@/lib/api';
 
 // Defer below-the-fold components to reduce initial JS execution and improve FCP/LCP
 const WhyAlexHealthcare = dynamic(() => import('@/components/home/WhyAlexHealthcare'));
@@ -17,7 +18,9 @@ export const metadata = {
   description: 'Building the infrastructure behind better healthcare. Comprehensive hospital planning, civil construction, modular operating theatres, medical gas pipeline systems, and ICU setups across Northeast India.',
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const projects = await getProjects();
+
   return (
     <>
       {/* 1. Hero Section */}
@@ -30,7 +33,7 @@ export default function HomePage() {
       <ServicesOverview />
 
       {/* 4. Featured Verified Projects Portfolio */}
-      <FeaturedProjects />
+      <FeaturedProjects initialProjects={projects} />
 
       {/* 5. Why Alex Healthcare System (4 principles) */}
       <WhyAlexHealthcare />

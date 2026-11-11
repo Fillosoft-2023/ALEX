@@ -22,19 +22,22 @@ export default function GalleryGrid({
   showFilters = true,
   showCategoryHeader = true,
   onImageClick = null,
+  initialItems = null,
 }) {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  const allItems = initialItems && initialItems.length > 0 ? initialItems : galleryItems;
+
   // Filter items based on active category
   const filteredItems = useMemo(() => {
-    let list = galleryItems;
+    let list = allItems;
     if (activeCategory !== 'all') {
       list = list.filter((item) => item.categoryKey === activeCategory);
     }
     return limit ? list.slice(0, limit) : list;
-  }, [activeCategory, limit]);
+  }, [activeCategory, limit, allItems]);
 
   const handleOpenLightbox = (index) => {
     if (onImageClick) {
@@ -55,14 +58,14 @@ export default function GalleryGrid({
 
   // Calculate count for each category
   const categoryCounts = useMemo(() => {
-    const counts = { all: galleryItems.length };
+    const counts = { all: allItems.length };
     galleryCategories.forEach(cat => {
       if (cat.id !== 'all') {
-        counts[cat.id] = galleryItems.filter(item => item.categoryKey === cat.id).length;
+        counts[cat.id] = allItems.filter(item => item.categoryKey === cat.id).length;
       }
     });
     return counts;
-  }, []);
+  }, [allItems]);
 
   return (
     <div className="w-full">

@@ -2,13 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, MapPin, Sparkles, CheckCircle2 } from 'lucide-react';
 import ProjectsGrid from '@/components/projects/ProjectsGrid';
+import { getProjects } from '@/lib/api';
 
 export const metadata = {
   title: 'Verified Projects Portfolio | Alex Healthcare System',
   description: 'Explore completed hospital construction projects, modular OT installations, medical gas pipeline networks, and ICU setups across Northeast India by Alex Healthcare System.',
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
   return (
     <div className="w-full bg-[#faf9f5]">
       
@@ -91,7 +94,7 @@ export default function ProjectsPage() {
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 anim-view">
-          <ProjectsGrid />
+          <ProjectsGrid initialProjects={projects} />
         </div>
       </section>
 

@@ -18,11 +18,11 @@ const FILTER_CATEGORIES: ProjectCategory[] = [
   'Modular OT'
 ];
 
-export default function ProjectsSection() {
+export default function ProjectsSection({ initialProjects = null }: { initialProjects?: any[] | null }) {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All Projects');
 
   // Cast projectsData to Project[]
-  const allProjects = useMemo<Project[]>(() => projectsData as Project[], []);
+  const allProjects = useMemo<Project[]>(() => (initialProjects && initialProjects.length > 0 ? initialProjects : projectsData) as Project[], [initialProjects]);
 
   // Compute dynamic project counts per category
   const categoryCounts = useMemo<Record<ProjectCategory, number>>(() => {

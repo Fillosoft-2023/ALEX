@@ -168,6 +168,7 @@ export default function Footer() {
               <ul className="space-y-1 text-xs text-ivory/70">
                 <li><Link href="/" className="hover:text-coral-accent">Home</Link></li>
                 <li><Link href="/about" className="hover:text-coral-accent">About Company</Link></li>
+                <li><Link href="/blogs" className="hover:text-coral-accent">Technical Publications &amp; Blogs</Link></li>
                 <li><Link href="/gallery" className="hover:text-coral-accent">Project Photo Gallery</Link></li>
                 <li><Link href="/contact" className="hover:text-coral-accent">Contact &amp; Estimate</Link></li>
                 <li><Link href="/privacy-policy" className="hover:text-coral-accent">Privacy Policy</Link></li>
