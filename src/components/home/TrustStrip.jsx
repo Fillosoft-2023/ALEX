@@ -16,8 +16,12 @@ import {
   Sparkles
 } from 'lucide-react';
 
-export default function TrustStrip() {
-  const trustPoints = [
+export default function TrustStrip({ content }) {
+  const badgeText = content?.badge || "Verified Track Record • Interactive 3D Credential Showcase";
+  const headlineText = content?.headline || "Trusted Healthcare Infrastructure Partner in Northeast India";
+  const subtextText = content?.subtext || "Guwahati Headquarters • Field Execution Desk";
+
+  const defaultTrustPoints = [
     {
       id: 0,
       badge: "Heritage",
@@ -67,6 +71,19 @@ export default function TrustStrip() {
       icon: MapPin
     }
   ];
+
+  const icons = [Award, Building2, Layers, Wrench, ShieldCheck, MapPin];
+
+  const trustPoints = content?.stats && Array.isArray(content.stats) && content.stats.length > 0
+    ? content.stats.map((s, idx) => ({
+        id: idx,
+        badge: s.badge || s.label || `Point 0${idx + 1}`,
+        metric: s.number || s.metric || "100%",
+        title: s.title || `${s.number || ''} ${s.label || ''}`.trim() || `Healthcare Credential 0${idx + 1}`,
+        desc: s.desc || s.subtext || "Verified hospital infrastructure engineering standard across Northeast India.",
+        icon: icons[idx % icons.length]
+      }))
+    : defaultTrustPoints;
 
   const totalCards = trustPoints.length;
   const anglePerCard = 360 / totalCards; // 60 degrees
@@ -169,17 +186,17 @@ export default function TrustStrip() {
           <div>
             <div className="inline-flex items-center space-x-1.5 text-[11px] font-bold uppercase tracking-wider text-teal-deep bg-white/90 border border-teal-deep/25 px-3.5 py-1 rounded-full mb-2 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-coral-accent" />
-              <span className="font-jost tracking-widest">Verified Track Record &bull; Interactive 3D Credential Showcase</span>
+              <span className="font-jost tracking-widest">{badgeText}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-charcoal-green tracking-tight font-serif">
-              Trusted Healthcare Infrastructure Partner in Northeast India
+              {headlineText}
             </h2>
           </div>
 
           <div className="flex items-center space-x-3">
             <div className="hidden sm:flex items-center space-x-2 text-xs font-semibold text-charcoal-green/85 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl border border-teal-deep/20 shadow-subtle">
               <MapPin className="w-4 h-4 text-coral-accent" />
-              <span className="font-jost uppercase tracking-wider text-[11px]">Guwahati Headquarters &bull; Field Execution Desk</span>
+              <span className="font-jost uppercase tracking-wider text-[11px]">{subtextText}</span>
             </div>
 
             {/* Play/Pause toggle */}

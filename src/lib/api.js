@@ -108,3 +108,17 @@ export async function getCompanySettings() {
   }
 }
 
+export async function getPageData(slug) {
+  try {
+    const res = await fetch(`${API_BASE}/sites/${SITE_KEY}/pages/${slug}`, {
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json?.data || null;
+  } catch (err) {
+    return null;
+  }
+}
+

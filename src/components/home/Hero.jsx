@@ -8,34 +8,64 @@ import CountingNumber from '@/components/ui/CountingNumber';
 import HeroTypewriter from '@/components/home/HeroTypewriter';
 import ConsultationModuleBox from '@/components/home/ConsultationModuleBox';
 
-const HeroStatsNumbers = ({ className = '' }) => (
-  <div className={`grid grid-cols-3 gap-3 sm:gap-6 text-white ${className}`}>
-    <div className="space-y-0.5">
-      <div className="text-2xl sm:text-3xl font-extrabold text-emerald-300 tracking-tight">
-        <CountingNumber target={6} duration={1200} suffix="+" />
-      </div>
-      <div className="text-[10px] sm:text-xs text-white/75 font-medium leading-tight">Years Experience</div>
+const parseStatTarget = (raw) => {
+  if (typeof raw === 'number') return { target: raw, suffix: '' };
+  if (!raw) return { target: 0, suffix: '' };
+  const str = String(raw).trim();
+  const match = str.match(/^(\d+(?:\.\d+)?)(.*)$/);
+  if (match) {
+    return { target: parseFloat(match[1]), suffix: match[2] || '' };
+  }
+  return { target: 0, suffix: str };
+};
+
+const HeroStatsNumbers = ({ stats, className = '' }) => {
+  const defaultStats = [
+    { number: '6+', label: 'Years Experience' },
+    { number: '30+', label: 'Completed Projects' },
+    { number: '100+', label: 'Ongoing Projects' },
+  ];
+
+  const items = Array.isArray(stats) && stats.length > 0 ? stats : defaultStats;
+
+  return (
+    <div className={`grid grid-cols-3 gap-3 sm:gap-6 text-white ${className}`}>
+      {items.slice(0, 3).map((item, idx) => {
+        const { target, suffix } = parseStatTarget(item.number);
+        const isMiddleOrEnd = idx > 0;
+        const colorClass = idx === 2 ? 'text-white' : 'text-emerald-300';
+
+        return (
+          <div
+            key={idx}
+            className={`space-y-0.5 ${isMiddleOrEnd ? 'border-l border-emerald-500/20 pl-3 sm:pl-6' : ''}`}
+          >
+            <div className={`text-2xl sm:text-3xl font-extrabold ${colorClass} tracking-tight`}>
+              {target > 0 ? (
+                <CountingNumber target={target} duration={1200 + idx * 150} suffix={suffix} />
+              ) : (
+                <span>{item.number}</span>
+              )}
+            </div>
+            <div className="text-[10px] sm:text-xs text-white/75 font-medium leading-tight">
+              {item.label}
+            </div>
+          </div>
+        );
+      })}
     </div>
-    <div className="space-y-0.5 border-l border-emerald-500/20 pl-3 sm:pl-6">
-      <div className="text-2xl sm:text-3xl font-extrabold text-emerald-300 tracking-tight">
-        <CountingNumber target={30} duration={1400} suffix="+" />
-      </div>
-      <div className="text-[10px] sm:text-xs text-white/75 font-medium leading-tight">Completed Projects</div>
-    </div>
-    <div className="space-y-0.5 border-l border-emerald-500/20 pl-3 sm:pl-6">
-      <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-        <CountingNumber target={100} duration={1500} suffix="+" />
-      </div>
-      <div className="text-[10px] sm:text-xs text-white/75 font-medium leading-tight">Ongoing Projects</div>
-    </div>
-  </div>
-);
+  );
+};
 
 
-export default function Hero() {
+export default function Hero({ content }) {
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+
+  const badgeText = content?.badge || "Integrated Healthcare Infrastructure Partner • Northeast India";
+  const subtextText = content?.subtext || "Comprehensive hospital planning, civil engineering, ISO cleanroom modular operating theatres, and certified medical gas pipelines across Northeast India.";
+  const videoSrc = content?.video_url || "/NEW.mp4";
 
   useEffect(() => {
     // Attempt auto-play when component mounts
@@ -61,7 +91,7 @@ export default function Hero() {
           preload="metadata"
           className="absolute inset-0 w-full h-full object-cover object-center"
         >
-          <source src="/NEW.mp4" type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -83,7 +113,7 @@ export default function Hero() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
               </span>
               <span className="font-jost tracking-wider uppercase text-[11px] text-white/90">
-                Integrated Healthcare Infrastructure Partner &bull; Northeast India
+                {badgeText}
               </span>
             </div>
 
@@ -92,12 +122,16 @@ export default function Hero() {
               {/* Soft atmospheric ambient glow behind the title */}
               <span className="absolute -top-8 -left-8 w-72 h-36 bg-gradient-to-r from-teal-deep/40 via-forest/30 to-emerald-500/20 blur-3xl pointer-events-none -z-10 animate-floatSlow" aria-hidden="true" />
               
-              <HeroTypewriter />
+              {content?.headline ? (
+                <span>{content.headline}</span>
+              ) : (
+                <HeroTypewriter />
+              )}
             </h1>
 
             {/* Subtitle */}
             <p className="text-sm sm:text-base text-white/85 leading-relaxed font-lora max-w-lg drop-shadow-sm">
-              Comprehensive hospital planning, civil engineering, ISO cleanroom modular operating theatres, and certified medical gas pipelines across Northeast India.
+              {subtextText}
             </p>
 
             {/* Action CTAs */}
@@ -122,7 +156,7 @@ export default function Hero() {
 
             {/* Stats Numbers directly rendered without card backgrounds or borders */}
             <div className="pt-2">
-              <HeroStatsNumbers />
+              <HeroStatsNumbers stats={content?.stats} />
             </div>
 
           </div>

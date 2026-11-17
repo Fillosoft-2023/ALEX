@@ -6,7 +6,13 @@ import { ArrowRight, Phone, Mail, ShieldCheck, Sparkles, Clock, CheckCircle } fr
 import { motion } from 'framer-motion';
 import { companyData } from '@/data/companyData';
 
-export default function HomeCTA() {
+export default function HomeCTA({ content }) {
+  const badgeText = content?.badge || "End-to-End Hospital Engineering • Architecture • Commissioning";
+  const headlineText = content?.headline || "Planning a Hospital or Upgrading Your Healthcare Facility?";
+  const subtextText = content?.subtext || "Let's evaluate your infrastructure parameters and develop an itemized architectural roadmap. From concept drawings to final OT particle certification, our Guwahati engineering team is at your service.";
+  const ctaBtnText = content?.cta_button_text || "Request a Project Consultation";
+  const ctaBtnLink = content?.cta_button_link || "/contact";
+
   return (
     <section className="relative w-full bg-charcoal-green text-white py-16 sm:py-24 overflow-hidden border-b border-teal-deep/20">
       
@@ -57,7 +63,7 @@ export default function HomeCTA() {
         >
           <ShieldCheck className="w-4 h-4 text-amber-400" />
           <span className="font-jost uppercase tracking-widest text-[11px] text-amber-200">
-            End-to-End Hospital Engineering &bull; Architecture &bull; Commissioning
+            {badgeText}
           </span>
         </motion.div>
 
@@ -70,10 +76,10 @@ export default function HomeCTA() {
           className="space-y-4 max-w-3xl mx-auto"
         >
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight font-serif text-white">
-            Planning a Hospital or Upgrading Your Healthcare Facility?
+            {headlineText}
           </h2>
           <p className="text-base sm:text-lg text-ivory/85 leading-relaxed font-lora">
-            Let&apos;s evaluate your infrastructure parameters and develop an itemized architectural roadmap. From concept drawings to final OT particle certification, our Guwahati engineering team is at your service.
+            {subtextText}
           </p>
         </motion.div>
 
@@ -86,10 +92,10 @@ export default function HomeCTA() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
         >
           <Link
-            href="/contact"
+            href={ctaBtnLink}
             className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-bold text-charcoal-green bg-gradient-to-r from-amber-300 via-amber-200 to-amber-400 hover:from-amber-400 hover:to-amber-500 shadow-float hover:shadow-elevated transition-all duration-300 group border border-amber-300 font-jost uppercase tracking-wider cursor-pointer"
           >
-            <span>Request a Project Consultation</span>
+            <span>{ctaBtnText}</span>
             <ArrowRight className="ml-2.5 w-4 h-4 text-charcoal-green group-hover:translate-x-1.5 transition-transform" />
           </Link>
 

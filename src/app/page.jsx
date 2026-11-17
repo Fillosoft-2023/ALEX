@@ -3,7 +3,7 @@ import Hero from '@/components/home/Hero';
 import TrustStrip from '@/components/home/TrustStrip';
 import ServicesOverview from '@/components/home/ServicesOverview';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
-import { getProjects } from '@/lib/api';
+import { getProjects, getPageData } from '@/lib/api';
 
 // Defer below-the-fold components to reduce initial JS execution and improve FCP/LCP
 const WhyAlexHealthcare = dynamic(() => import('@/components/home/WhyAlexHealthcare'));
@@ -19,39 +19,80 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  const projects = await getProjects();
+  const [projects, pageData] = await Promise.all([
+    getProjects(),
+    getPageData('home')
+  ]);
+
+  const sections = pageData?.sections || [];
+
+  // Helper function to check if a section exists in the API response
+  const getSection = (compType) => {
+    return sections.find(
+      (s) => s.type?.toLowerCase() === compType.toLowerCase() || s.name?.toLowerCase().includes(compType.toLowerCase())
+    );
+  };
+
+  const isSectionVisible = (compType) => {
+    if (!pageData) return true; // fallback to showing if API unreachable
+    return Boolean(getSection(compType));
+  };
+
+  const getSectionContent = (compType) => {
+    return getSection(compType)?.content || undefined;
+  };
 
   return (
     <>
       {/* 1. Hero Section */}
-      <Hero />
+      {isSectionVisible('Hero') && (
+        <Hero content={getSectionContent('Hero')} />
+      )}
 
       {/* 2. Trust & Experience Strip */}
-      <TrustStrip />
+      {isSectionVisible('TrustStrip') && (
+        <TrustStrip content={getSectionContent('TrustStrip')} />
+      )}
 
       {/* 3. Services Overview Grid (6 core services) */}
-      <ServicesOverview />
+      {isSectionVisible('ServicesOverview') && (
+        <ServicesOverview content={getSectionContent('ServicesOverview')} />
+      )}
 
       {/* 4. Featured Verified Projects Portfolio */}
-      <FeaturedProjects initialProjects={projects} />
+      {isSectionVisible('FeaturedProjects') && (
+        <FeaturedProjects initialProjects={projects} content={getSectionContent('FeaturedProjects')} />
+      )}
 
       {/* 5. Why Alex Healthcare System (4 principles) */}
-      <WhyAlexHealthcare />
+      {isSectionVisible('WhyAlexHealthcare') && (
+        <WhyAlexHealthcare content={getSectionContent('WhyAlexHealthcare')} />
+      )}
 
       {/* 6. End-to-End Execution Process Timeline */}
-      <ProcessTimeline />
+      {isSectionVisible('ProcessTimeline') && (
+        <ProcessTimeline content={getSectionContent('ProcessTimeline')} />
+      )}
 
       {/* 7. Healthcare Infrastructure & Facilities Photo Gallery */}
-      <HomeGallerySection />
+      {isSectionVisible('HomeGallerySection') && (
+        <HomeGallerySection content={getSectionContent('HomeGallerySection')} />
+      )}
 
       {/* 8. Verified Client Testimonials */}
-      <TestimonialsSection />
+      {isSectionVisible('TestimonialsSection') && (
+        <TestimonialsSection content={getSectionContent('TestimonialsSection')} />
+      )}
 
       {/* 9. Strong Call to Action */}
-      <HomeCTA />
+      {isSectionVisible('HomeCTA') && (
+        <HomeCTA content={getSectionContent('HomeCTA')} />
+      )}
 
       {/* 10. Frequently Asked Questions */}
-      <FaqAccordion />
+      {isSectionVisible('FaqAccordion') && (
+        <FaqAccordion content={getSectionContent('FaqAccordion')} />
+      )}
     </>
   );
 }

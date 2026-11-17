@@ -18,8 +18,12 @@ const FILTER_CATEGORIES: ProjectCategory[] = [
   'Modular OT'
 ];
 
-export default function ProjectsSection({ initialProjects = null }: { initialProjects?: any[] | null }) {
+export default function ProjectsSection({ initialProjects = null, content = null }: { initialProjects?: any[] | null; content?: any }) {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All Projects');
+
+  const badgeText = content?.badge || 'Healthcare Infrastructure Portfolio';
+  const headlineText = content?.headline || 'Built for Better Healthcare.';
+  const subtextText = content?.subtext || 'Hospital construction, medical gas systems, modular operating theatres, and healthcare infrastructure delivered across Assam and Eastern India.';
 
   // Cast projectsData to Project[]
   const allProjects = useMemo<Project[]>(() => (initialProjects && initialProjects.length > 0 ? initialProjects : projectsData) as Project[], [initialProjects]);
@@ -110,7 +114,7 @@ export default function ProjectsSection({ initialProjects = null }: { initialPro
               {/* Technical Indicator Pill */}
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-amber-300 text-xs font-mono font-bold tracking-widest uppercase shadow-2xs backdrop-blur-sm">
                 <Compass className="w-3.5 h-3.5 text-amber-400" />
-                <span>Healthcare Infrastructure Portfolio</span>
+                <span>{badgeText}</span>
               </div>
 
               {/* Editorial Heading */}
@@ -118,12 +122,12 @@ export default function ProjectsSection({ initialProjects = null }: { initialPro
                 id="portfolio-heading"
                 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-white tracking-tight leading-[1.18] font-serif"
               >
-                Built for Better Healthcare.
+                {headlineText}
               </h2>
 
               {/* Supporting Editorial Description */}
               <p className="text-sm sm:text-base text-ivory/85 leading-relaxed font-lora max-w-2xl">
-                Hospital construction, medical gas systems, modular operating theatres, and healthcare infrastructure delivered across Assam and Eastern India.
+                {subtextText}
               </p>
             </motion.div>
 

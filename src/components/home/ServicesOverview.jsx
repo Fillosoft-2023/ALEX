@@ -14,8 +14,19 @@ const CATEGORY_TABS = [
   { id: 'mgps', label: 'MGPS & Gas Pipelines' },
 ];
 
-export default function ServicesOverview() {
+export default function ServicesOverview({ content }) {
   const [activeTab, setActiveTab] = useState('all');
+
+  const badgeText = content?.badge || "Disciplines & Solutions";
+  const headlineText = content?.headline || "Integrated Healthcare Infrastructure Disciplines";
+  const subtextText = content?.subtext || "Every stage of a healthcare facility’s lifecycle demands engineering precision. We eliminate multi-vendor friction by executing civil builds, surgical cleanrooms, gas distribution, and licensing under unified governance.";
+
+  const dynamicTabs = [
+    { id: 'all', label: content?.tab_all || 'All Disciplines' },
+    { id: 'civil', label: content?.tab_civil || 'Civil & Hospital Build' },
+    { id: 'ot', label: content?.tab_ot || 'Modular OTs & ICU' },
+    { id: 'mgps', label: content?.tab_mgps || 'MGPS & Gas Pipelines' },
+  ];
 
   // Filter 6 featured services based on selected discipline
   const filteredServices = servicesData.slice(0, 6).filter((service) => {
@@ -84,13 +95,13 @@ export default function ServicesOverview() {
           >
             <div className="inline-flex items-center space-x-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-teal-deep bg-white/70 backdrop-blur-md border border-white/60 px-3.5 py-1 rounded-full shadow-sm font-jost">
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>Disciplines &amp; Solutions</span>
+              <span>{badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-charcoal-green tracking-tight leading-snug font-cormorant">
-              Integrated Healthcare Infrastructure Disciplines
+              {headlineText}
             </h2>
             <p className="text-xs sm:text-base text-charcoal-green/80 leading-relaxed font-lora">
-              Every stage of a healthcare facility’s lifecycle demands engineering precision. We eliminate multi-vendor friction by executing civil builds, surgical cleanrooms, gas distribution, and licensing under unified governance.
+              {subtextText}
             </p>
           </motion.div>
 
@@ -110,7 +121,7 @@ export default function ServicesOverview() {
             <span>Filter:</span>
           </span>
 
-          {CATEGORY_TABS.map((tab) => {
+          {dynamicTabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
               <button

@@ -101,7 +101,7 @@ export default function AboutPage() {
             </h1>
             
             <p className="text-base sm:text-lg text-ivory/85 leading-relaxed font-lora max-w-2xl">
-              For over 12 years, Alex Healthcare System has partnered with hospital founders, healthcare trusts, and clinicians to construct, modernize, and commission patient-centric healthcare facilities.
+              For over 15 years, Alex Healthcare System has partnered with hospital founders, healthcare trusts, and clinicians to construct, modernize, and commission patient-centric healthcare facilities.
             </p>
 
             {/* Quick credentials strip */}
