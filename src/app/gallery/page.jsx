@@ -1,8 +1,11 @@
 import Link from 'next/link';
-import { Camera, ArrowRight, PhoneCall, Building2, ShieldCheck, Sparkles } from 'lucide-react';
+import { Camera, ArrowRight, PhoneCall, Building2, ShieldCheck } from 'lucide-react';
 import GalleryGrid from '@/components/gallery/GalleryGrid';
 import { galleryItems } from '@/data/galleryData';
 import { getGalleryItems } from '@/lib/api';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata = {
   title: 'Project Photo Gallery | Alex Healthcare System | Hospital Facades & MGPS Infrastructure',
@@ -48,7 +51,7 @@ export default async function GalleryPage() {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16 sm:pb-24 anim-view">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16 sm:pb-24">
         
         {/* Unified Hero Header Section */}
         <div className="max-w-4xl mb-8 sm:mb-10 space-y-4">
@@ -80,7 +83,7 @@ export default async function GalleryPage() {
               <span>100% On-Site Authentic Work</span>
             </span>
             <span className="inline-flex items-center space-x-1.5 bg-white/80 px-3 py-1 rounded-lg border border-teal-deep/10 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-coral-accent" />
+              <ShieldCheck className="w-3.5 h-3.5 text-forest" />
               <span>Tap any photo for full high-res preview</span>
             </span>
           </div>

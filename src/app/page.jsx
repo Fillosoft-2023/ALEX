@@ -34,7 +34,8 @@ export default async function HomePage() {
   };
 
   const isSectionVisible = (compType) => {
-    if (!pageData) return true; // fallback to showing if API unreachable
+    // Show everything until the admin has configured this page (or if the API is unreachable)
+    if (!pageData || sections.length === 0) return true;
     return Boolean(getSection(compType));
   };
 

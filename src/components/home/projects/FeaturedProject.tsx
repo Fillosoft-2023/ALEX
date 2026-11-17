@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, MapPin, Building2, Layers, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, MapPin, Building2, Layers, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { Project } from '@/types/project';
 
 interface FeaturedProjectProps {

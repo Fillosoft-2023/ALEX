@@ -1,0 +1,23 @@
+// Client/server-safe helpers for media served by the admin panel.
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+export const API_ORIGIN = API_BASE.replace(/\/api\/v\d+\/?$/, '');
+
+/**
+ * Turn admin-uploaded relative paths (/storage/...) into absolute URLs served by
+ * the admin panel. Absolute URLs and local /public assets are returned untouched.
+ */
+export function mediaUrl(path) {
+  if (!path || typeof path !== 'string') return path;
+  if (path.startsWith('/storage/')) return `${API_ORIGIN}${path}`;
+  return path.replace('http://127.0.0.1:8000/', `${API_ORIGIN}/`);
+}
+
+/** Recursively rewrite every /storage/... string inside API data (images, galleries, section content). */
+export function resolveMedia(value) {
+  if (typeof value === 'string') return mediaUrl(value);
+  if (Array.isArray(value)) return value.map(resolveMedia);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, resolveMedia(v)]));
+  }
+  return value;
+}

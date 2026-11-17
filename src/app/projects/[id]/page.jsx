@@ -18,6 +18,9 @@ import { projectsData } from '@/data/projectsData';
 import ProjectGallery from '@/components/projects/ProjectGallery';
 import { getProjects, getProjectBySlug } from '@/lib/api';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function generateStaticParams() {
   const projects = await getProjects();
   return projects.map((project) => ({
@@ -36,6 +39,41 @@ export async function generateMetadata({ params }) {
   };
 }
 
+function formatYouTubeEmbedUrl(url) {
+  if (!url || typeof url !== 'string') return null;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+
+  const srcMatch = trimmed.match(/src=["']([^"']+)["']/i);
+  const target = srcMatch ? srcMatch[1] : trimmed;
+
+  if (target.includes('youtube.com/embed/') || target.includes('youtube-nocookie.com/embed/')) {
+    return target;
+  }
+
+  const shortMatch = target.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/i);
+  if (shortMatch) {
+    return `https://www.youtube.com/embed/${shortMatch[1]}`;
+  }
+
+  const watchMatch = target.match(/[?&]v=([a-zA-Z0-9_-]{11})/i);
+  if (watchMatch) {
+    return `https://www.youtube.com/embed/${watchMatch[1]}`;
+  }
+
+  const shortsMatch = target.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/i);
+  if (shortsMatch) {
+    return `https://www.youtube.com/embed/${shortsMatch[1]}`;
+  }
+
+  const liveMatch = target.match(/youtube\.com\/live\/([a-zA-Z0-9_-]{11})/i);
+  if (liveMatch) {
+    return `https://www.youtube.com/embed/${liveMatch[1]}`;
+  }
+
+  return target;
+}
+
 export default async function ProjectDetailPage({ params }) {
   const { id } = await params;
   const project = await getProjectBySlug(id);
@@ -43,6 +81,8 @@ export default async function ProjectDetailPage({ params }) {
   if (!project) {
     notFound();
   }
+
+  const embedUrl = formatYouTubeEmbedUrl(project.videoEmbed);
 
   const allProjects = await getProjects();
   // Related projects
@@ -145,8 +185,8 @@ export default async function ProjectDetailPage({ params }) {
               {/* Verified Photography & Facility Gallery */}
               <ProjectGallery images={project.gallery} projectTitle={project.title} />
 
-              {/* YouTube Video Embed if available (Star Hospital) */}
-              {project.videoEmbed && (
+              {/* YouTube Video Embed if available */}
+              {embedUrl && (
                 <div className="bg-white rounded-2xl p-6 border border-teal-deep/15 shadow-subtle space-y-3">
                   <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-teal-deep">
                     <Video className="w-4 h-4 text-forest" />
@@ -154,7 +194,7 @@ export default async function ProjectDetailPage({ params }) {
                   </div>
                   <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black shadow-inner">
                     <iframe
-                      src={project.videoEmbed}
+                      src={embedUrl}
                       title={`${project.title} Video Documentary`}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen

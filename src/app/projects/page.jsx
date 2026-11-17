@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, MapPin, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, MapPin, CheckCircle2 } from 'lucide-react';
 import ProjectsGrid from '@/components/projects/ProjectsGrid';
 import { getProjects } from '@/lib/api';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata = {
   title: 'Verified Projects Portfolio | Alex Healthcare System',

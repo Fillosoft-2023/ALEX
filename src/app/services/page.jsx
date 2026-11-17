@@ -10,8 +10,7 @@ import {
   Layers,
   Activity,
   Flame,
-  Cpu,
-  Sparkles
+  Cpu
 } from 'lucide-react';
 import { servicesData } from '@/data/servicesData';
 import { companyData } from '@/data/companyData';

@@ -11,11 +11,11 @@ import {
   Activity, 
   FileCheck2,
   Building,
-  Sparkles
+  ShieldCheck
 } from 'lucide-react';
 import { motion, useScroll, useSpring, MotionConfig } from 'framer-motion';
 
-export default function WhyAlexHealthcare() {
+export default function WhyAlexHealthcare({ content }) {
   const sectionRef = useRef(null);
   const [hoveredPillar, setHoveredPillar] = useState(0);
 
@@ -31,7 +31,7 @@ export default function WhyAlexHealthcare() {
     restDelta: 0.001
   });
 
-  const pillars = [
+  const defaultPillars = [
     {
       num: '01',
       icon: Layers,
@@ -69,6 +69,22 @@ export default function WhyAlexHealthcare() {
       spec: 'Seismic Zone V Certified'
     }
   ];
+
+  // Admin-managed copy (Page Components → Why Alex Healthcare) overrides the defaults.
+  const badgeText = content?.badge || 'Engineering Advantage';
+  const headlineText = content?.headline || 'Why Healthcare Providers Choose Alex Healthcare System';
+  const subtextText = content?.subtext || 'Constructing a hospital is unlike any other commercial building project. Precision engineering, statutory life-safety, and clinical patient outcomes dictate every design and installation decision.';
+  const pillars = defaultPillars.map((pillar, i) => {
+    const item = Array.isArray(content?.principles) ? content.principles[i] : null;
+    if (!item) return pillar;
+    return {
+      ...pillar,
+      num: item.number || pillar.num,
+      title: item.title || pillar.title,
+      subtitle: item.badge || pillar.subtitle,
+      desc: item.desc || pillar.desc,
+    };
+  });
 
   return (
     <MotionConfig reducedMotion="user">
@@ -209,13 +225,13 @@ export default function WhyAlexHealthcare() {
           >
             {/* Technical Label */}
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-[#174F49]/20 text-[#174F49] text-xs font-mono font-bold tracking-widest uppercase shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>Engineering Advantage</span>
+              <ShieldCheck className="w-3.5 h-3.5 text-forest" />
+              <span>{badgeText}</span>
             </div>
 
             {/* Large Editorial Headline */}
             <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-[#174F49] tracking-tight leading-[1.18] font-serif">
-              Why Healthcare Providers Choose Alex Healthcare System
+              {headlineText}
             </h2>
           </motion.div>
 
@@ -228,7 +244,7 @@ export default function WhyAlexHealthcare() {
             className="lg:col-span-5 space-y-4 lg:pl-4 border-l-2 border-[#174F49]/25"
           >
             <p className="text-sm sm:text-base text-[#1c3832]/85 leading-relaxed font-lora">
-              Constructing a hospital is unlike any other commercial building project. Precision engineering, statutory life-safety, and clinical patient outcomes dictate every design and installation decision.
+              {subtextText}
             </p>
 
             {/* Key Clinical Standards Ribbon */}

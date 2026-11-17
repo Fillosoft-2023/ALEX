@@ -4,8 +4,19 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, ArrowRight, Building2, Calendar, CheckCircle2, Filter, Sparkles } from 'lucide-react';
+import { MapPin, ArrowRight, Building2, Calendar, CheckCircle2, Filter, ShieldCheck } from 'lucide-react';
 import { projectsData } from '@/data/projectsData';
+
+const matchCategory = (project, targetKey) => {
+  if (targetKey === 'all') return true;
+  const k = String(project.categoryKey || project.category_key || '').toLowerCase().trim();
+  const c = String(project.category || '').toLowerCase().trim();
+  if (targetKey === 'turnkey') return k.includes('turnkey') || c.includes('turnkey');
+  if (targetKey === 'mgps') return k.includes('mgps') || k.includes('gas') || c.includes('gas') || c.includes('mgps');
+  if (targetKey === 'ot') return k === 'ot' || k.includes('modular') || c.includes('modular') || c.includes('ot') || c.includes('theatre');
+  if (targetKey === 'icu') return k.includes('icu') || k.includes('critical') || c.includes('icu') || c.includes('critical');
+  return k === targetKey || c === targetKey;
+};
 
 export default function ProjectsGrid({ initialProjects = null }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -13,15 +24,15 @@ export default function ProjectsGrid({ initialProjects = null }) {
 
   const categories = [
     { key: 'all', label: 'All Projects', count: allProjects.length },
-    { key: 'turnkey', label: 'Turnkey Construction', count: allProjects.filter(p => p.categoryKey === 'turnkey').length },
-    { key: 'mgps', label: 'Gas Systems & MGPS', count: allProjects.filter(p => p.categoryKey === 'mgps').length },
-    { key: 'ot', label: 'Modular OT', count: allProjects.filter(p => p.categoryKey === 'ot').length },
-    { key: 'icu', label: 'ICU & Critical Care', count: allProjects.filter(p => p.categoryKey === 'icu').length },
+    { key: 'turnkey', label: 'Turnkey Construction', count: allProjects.filter(p => matchCategory(p, 'turnkey')).length },
+    { key: 'mgps', label: 'Gas Systems & MGPS', count: allProjects.filter(p => matchCategory(p, 'mgps')).length },
+    { key: 'ot', label: 'Modular OT', count: allProjects.filter(p => matchCategory(p, 'ot')).length },
+    { key: 'icu', label: 'ICU & Critical Care', count: allProjects.filter(p => matchCategory(p, 'icu')).length },
   ];
 
   const filteredProjects = selectedCategory === 'all'
     ? allProjects
-    : allProjects.filter(p => p.categoryKey === selectedCategory);
+    : allProjects.filter(p => matchCategory(p, selectedCategory));
 
   return (
     <div className="space-y-12">
@@ -112,7 +123,7 @@ export default function ProjectsGrid({ initialProjects = null }) {
                 {/* Scope Highlights */}
                 <div className="pt-3 border-t border-teal-deep/10">
                   <div className="text-[10px] font-bold uppercase tracking-widest font-jost text-teal-deep mb-2 flex items-center space-x-1">
-                    <Sparkles className="w-3 h-3 text-coral-accent" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-forest" />
                     <span>Verified Scope Highlights:</span>
                   </div>
                   <ul className="space-y-1.5 text-xs text-charcoal-green/85 font-lora">

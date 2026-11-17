@@ -8,16 +8,15 @@ import {
   Cpu, 
   ShieldCheck,
   ArrowRight,
-  Sparkles,
   CheckCircle2
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function ProcessTimeline() {
+export default function ProcessTimeline({ content }) {
   const [activeStep, setActiveStep] = useState(0);
 
-  const steps = [
+  const defaultSteps = [
     {
       num: "01",
       title: "Consultation & Assessment",
@@ -65,6 +64,21 @@ export default function ProcessTimeline() {
     }
   ];
 
+  // Admin-managed copy (Page Components → Process Timeline) overrides the defaults.
+  const badgeText = content?.badge || 'Project Delivery Lifecycle • 5-Stage Framework';
+  const headlineText = content?.headline || 'End-to-End Hospital Execution Framework';
+  const subtextText = content?.subtext || 'How Alex Healthcare System delivers complex hospital engineering projects from concept drawings to certified clinical readiness with single-source accountability.';
+  const steps = defaultSteps.map((step, i) => {
+    const item = Array.isArray(content?.steps) ? content.steps[i] : null;
+    if (!item) return step;
+    return {
+      ...step,
+      num: item.step || step.num,
+      title: item.title || step.title,
+      desc: item.desc || step.desc,
+    };
+  });
+
   return (
     <section className="relative w-full bg-gradient-to-b from-[#09221e] via-[#0d2d27] to-[#09221e] text-white py-16 sm:py-24 border-b border-teal-deep/30 overflow-hidden">
       
@@ -101,14 +115,14 @@ export default function ProcessTimeline() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
           <div className="inline-flex items-center space-x-2 text-[11px] font-bold uppercase tracking-widest text-amber-300 bg-white/10 border border-white/20 px-3.5 py-1 rounded-full shadow-xs backdrop-blur-sm">
-            <Sparkles className="w-3 h-3 text-amber-400" />
-            <span className="font-jost">Project Delivery Lifecycle &bull; 5-Stage Framework</span>
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+            <span className="font-jost">{badgeText}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-serif">
-            End-to-End Hospital Execution Framework
+            {headlineText}
           </h2>
           <p className="text-sm sm:text-base text-ivory/85 leading-relaxed font-lora">
-            How Alex Healthcare System delivers complex hospital engineering projects from concept drawings to certified clinical readiness with single-source accountability.
+            {subtextText}
           </p>
 
           {/* Interactive Step Navigator Bar */}

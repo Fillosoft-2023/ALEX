@@ -5,7 +5,9 @@ import { ArrowRight } from 'lucide-react';
 import GalleryGrid from '@/components/gallery/GalleryGrid';
 import { galleryItems } from '@/data/galleryData';
 
-export default function HomeGallerySection() {
+export default function HomeGallerySection({ content }) {
+  const badgeText = content?.badge || 'Visual Documentation // Project Sites';
+  const headlineText = content?.headline || 'Healthcare Infrastructure Gallery';
   return (
     <section className="relative w-full bg-[#fcfbfa] py-12 sm:py-16 border-b border-teal-deep/15 overflow-hidden">
       {/* Subtle CAD Drafting Grid Background */}
@@ -27,10 +29,10 @@ export default function HomeGallerySection() {
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-teal-deep/15">
           <div className="space-y-1">
             <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-teal-deep/70">
-              Visual Documentation // Project Sites
+              {badgeText}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-charcoal-green tracking-tight font-serif">
-              Healthcare Infrastructure Gallery
+              {headlineText}
             </h2>
           </div>
 

@@ -1,10 +1,13 @@
 'use client';
 
-import { Star, Quote, Building2, CheckCircle2, Sparkles } from 'lucide-react';
+import { Star, Quote, Building2, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { testimonialsData } from '@/data/testimonialsData';
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ content }) {
+  const badgeText = content?.badge || 'Client Endorsements • Verified Testimonials';
+  const headlineText = content?.headline || 'Trusted by Hospital Leaders Across Northeast India';
+  const subtextText = content?.subtext || 'Verified feedback from hospital directors, medical superintendents, and healthcare administrators on healthcare project execution, MGPS reliability, and clinical compliance.';
   return (
     <section className="relative w-full bg-gradient-to-b from-[#d6e9dd] via-[#cce2d3] to-[#d6e9dd] py-16 sm:py-24 border-b border-[#1b5b4a]/25 overflow-hidden">
       
@@ -29,14 +32,14 @@ export default function TestimonialsSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <div className="inline-flex items-center space-x-2 text-[11px] font-bold uppercase tracking-widest text-teal-deep bg-white border border-teal-deep/20 px-3.5 py-1 rounded-full shadow-xs">
-            <Sparkles className="w-3 h-3 text-coral-accent" />
-            <span className="font-jost">Client Endorsements &bull; Verified Testimonials</span>
+            <ShieldCheck className="w-3.5 h-3.5 text-forest" />
+            <span className="font-jost">{badgeText}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal-green tracking-tight font-serif">
-            Trusted by Hospital Leaders Across Northeast India
+            {headlineText}
           </h2>
           <p className="text-sm sm:text-base text-charcoal-green/80 leading-relaxed font-lora">
-            Verified feedback from hospital directors, medical superintendents, and healthcare administrators on healthcare project execution, MGPS reliability, and clinical compliance.
+            {subtextText}
           </p>
         </div>
 

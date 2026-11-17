@@ -10,6 +10,7 @@ import {
   Clock, 
   MessageSquare
 } from 'lucide-react';
+import { submitLead } from '@/lib/leads';
 
 export default function ConsultationModuleBox({ isOpenExternal, onCloseExternal }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -95,14 +96,25 @@ export default function ConsultationModuleBox({ isOpenExternal, onCloseExternal 
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitLead({
+        name: formData.name,
+        phone: formData.phone,
+        location: formData.location,
+        service_type: formData.service,
+        message: formData.description,
+        source: 'alex_consultation_box',
+      });
       setIsSubmitted(true);
-    }, 700);
+    } catch (err) {
+      console.warn('Lead submission failed:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Currently hidden from display per request

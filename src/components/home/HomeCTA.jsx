@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Phone, Mail, ShieldCheck, Sparkles, Clock, CheckCircle } from 'lucide-react';
+import { ArrowRight, Phone, Mail, ShieldCheck, Clock, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { companyData } from '@/data/companyData';
 

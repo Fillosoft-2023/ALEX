@@ -1,12 +1,15 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Plus, Minus, HelpCircle, ArrowRight, Search, X, Sparkles } from 'lucide-react';
+import { Plus, Minus, HelpCircle, ArrowRight, Search, X, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { faqData } from '@/data/faqData';
 
-export default function FaqAccordion() {
+export default function FaqAccordion({ content }) {
+  const badgeText = content?.badge || 'Frequently Asked Questions • Direct Answers';
+  const headlineText = content?.headline || 'Frequently Asked Project Questions';
+  const subtextText = content?.subtext || 'Verified answers regarding our healthcare infrastructure capabilities, project execution model, and regional service coverage.';
   const [openIndex, setOpenIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -53,14 +56,14 @@ export default function FaqAccordion() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-teal-deep bg-white/95 border border-teal-deep/20 px-3.5 py-1.5 rounded-full inline-flex items-center space-x-1.5 shadow-2xs font-jost">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span>Frequently Asked Questions &bull; Direct Answers</span>
+            <ShieldCheck className="w-3.5 h-3.5 text-forest" />
+            <span>{badgeText}</span>
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal-green tracking-tight font-serif">
-            Frequently Asked Project Questions
+            {headlineText}
           </h2>
           <p className="text-sm sm:text-base text-charcoal-green/80 leading-relaxed font-lora">
-            Verified answers regarding our healthcare infrastructure capabilities, project execution model, and regional service coverage.
+            {subtextText}
           </p>
         </div>
 

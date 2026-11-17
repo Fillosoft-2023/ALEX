@@ -9,7 +9,6 @@ import {
   ChevronLeft, 
   ChevronRight, 
   ShieldCheck, 
-  Sparkles,
   Layers
 } from 'lucide-react';
 

@@ -11,7 +11,6 @@ import {
   ArrowRight,
   Stethoscope,
   HeartHandshake,
-  Sparkles,
   Compass,
   Layers,
   Activity
@@ -19,14 +18,38 @@ import {
 import { companyData } from '@/data/companyData';
 import CountingNumber from '@/components/ui/CountingNumber';
 import { projectsData } from '@/data/projectsData';
+import { getPageData } from '@/lib/api';
+import { mediaUrl } from '@/lib/media';
 
 export const metadata = {
   title: 'About Us | Alex Healthcare System',
   description: 'Learn about Alex Healthcare System - a leading provider of hospital infrastructure, medical gas pipelines, and modular OT solutions in Northeast India. 6+ years of experience, 30+ completed projects, and 100+ ongoing projects.',
 };
 
-export default function AboutPage() {
-  const coreValues = [
+export default async function AboutPage() {
+  const pageData = await getPageData('about');
+  const sections = pageData?.sections || [];
+  const storySection = sections.find(s => s.type?.toLowerCase() === 'alexaboutstory' || s.name?.toLowerCase().includes('story'))?.content;
+  const valuesSection = sections.find(s => s.type?.toLowerCase() === 'clinicalvalues' || s.name?.toLowerCase().includes('values'))?.content;
+
+  const heroBadge = storySection?.badge || "About Alex Healthcare System • Guwahati HQ";
+  const heroHeadline = storySection?.headline || "Engineering the Backbone of Northeast India’s Modern Hospitals";
+  const heroSubtext = storySection?.subtext || "For over 15 years, Alex Healthcare System has partnered with hospital founders, healthcare trusts, and clinicians to construct, modernize, and commission patient-centric healthcare facilities.";
+  const heroBgImage = mediaUrl(storySection?.hero_image) || "/buildings-bg.jpg";
+
+  const storyBadge = storySection?.story_badge || "Our Heritage & Mission";
+  const storyHeadline = storySection?.story_headline || "From Concept to Commissioning, No Project is Too Big or Too Small";
+  const storyP1 = storySection?.story_p1 || "Headquartered in Guwahati, Assam, Alex Healthcare System was founded with a clear directive: to elevate the standard of hospital infrastructure across Northeast India through specialized healthcare engineering.";
+  const storyP2 = storySection?.story_p2 || "Traditional contractors often treat hospital construction identically to commercial real estate. In healthcare, however, precision airflow, clinical zoning, medical gas purity, and life-safety fail-safes are non-negotiable.";
+  const storyP3 = storySection?.story_p3 || "With 6+ years of specialized healthcare engineering, we have successfully delivered 30+ completed projects and 100+ ongoing projects ranging from single modular operating theatre retrofits in district clinics to full-fledged 30 to 100+ bed hospital constructions built from the foundation up.";
+  const storyImage = mediaUrl(storySection?.image) || "/hospital-construction-main.jpg";
+  const regionalReach = storySection?.regional_reach || "Guwahati HQ with active project sites across Assam (Hojai, Nagaon, Guwahati), Meghalaya, Tripura, Arunachal Pradesh, and West Bengal.";
+
+  const valuesBadge = valuesSection?.badge || "Guiding Philosophy • Engineering Standards";
+  const valuesHeadline = valuesSection?.headline || valuesSection?.title || "The Principles Behind Every Facility We Build";
+  const valuesSubtext = valuesSection?.subtext || "Engineering decisions grounded in clinical safety, structural resilience, and operational efficiency.";
+
+  const defaultCoreValues = [
     {
       num: "01",
       title: "Clinical Safety & Integrity",
@@ -53,6 +76,15 @@ export default function AboutPage() {
     }
   ];
 
+  const coreValues = Array.isArray(valuesSection?.values) && valuesSection.values.length > 0
+    ? valuesSection.values.map((v, i) => ({
+        num: v.num || String(i + 1).padStart(2, '0'),
+        title: v.title || defaultCoreValues[i]?.title || 'Clinical Standard',
+        spec: v.spec || defaultCoreValues[i]?.spec || 'Healthcare Standard',
+        desc: v.desc || defaultCoreValues[i]?.desc || '',
+      }))
+    : defaultCoreValues;
+
   return (
     <div className="w-full bg-[#faf9f5]">
       
@@ -62,7 +94,7 @@ export default function AboutPage() {
         {/* Background photo & overlay */}
         <div className="absolute inset-0 z-0 opacity-20 mix-blend-luminosity">
           <Image
-            src="/buildings-bg.jpg"
+            src={heroBgImage}
             alt="Alex Healthcare System hospital engineering background"
             fill
             priority
@@ -93,15 +125,15 @@ export default function AboutPage() {
           <div className="max-w-3xl space-y-5">
             <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-xs font-semibold tracking-wide backdrop-blur-md shadow-subtle">
               <span className="w-2 h-2 rounded-full bg-coral-accent animate-pulse" />
-              <span className="font-jost uppercase tracking-widest text-[11px] text-sage">About Alex Healthcare System &bull; Guwahati HQ</span>
+              <span className="font-jost uppercase tracking-widest text-[11px] text-sage">{heroBadge}</span>
             </div>
             
             <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight leading-[1.2] font-serif text-white">
-              Engineering the Backbone of Northeast India’s Modern Hospitals
+              {heroHeadline}
             </h1>
             
             <p className="text-base sm:text-lg text-ivory/85 leading-relaxed font-lora max-w-2xl">
-              For over 15 years, Alex Healthcare System has partnered with hospital founders, healthcare trusts, and clinicians to construct, modernize, and commission patient-centric healthcare facilities.
+              {heroSubtext}
             </p>
 
             {/* Quick credentials strip */}
@@ -164,22 +196,16 @@ export default function AboutPage() {
             
             <div className="lg:col-span-7 space-y-6">
               <span className="text-xs font-bold uppercase tracking-widest text-teal-deep bg-white border border-teal-deep/20 px-3.5 py-1.5 rounded-full font-jost shadow-xs">
-                Our Heritage &amp; Mission
+                {storyBadge}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal-green tracking-tight font-serif leading-tight">
-                From Concept to Commissioning, No Project is Too Big or Too Small
+                {storyHeadline}
               </h2>
               
               <div className="space-y-4 text-sm sm:text-base text-charcoal-green/80 leading-relaxed font-lora">
-                <p>
-                  Headquartered in Guwahati, Assam, Alex Healthcare System was founded with a clear directive: to elevate the standard of hospital infrastructure across Northeast India through specialized healthcare engineering. 
-                </p>
-                <p>
-                  Traditional contractors often treat hospital construction identically to commercial real estate. In healthcare, however, precision airflow, clinical zoning, medical gas purity, and life-safety fail-safes are non-negotiable. 
-                </p>
-                <p>
-                  With 6+ years of specialized healthcare engineering, we have successfully delivered 30+ completed projects and 100+ ongoing projects ranging from single modular operating theatre retrofits in district clinics to full-fledged 30 to 100+ bed hospital constructions built from the foundation up.
-                </p>
+                <p>{storyP1}</p>
+                {storyP2 && <p>{storyP2}</p>}
+                {storyP3 && <p>{storyP3}</p>}
               </div>
 
               {/* Verified Scope Checkmarks with Architectural Pill Styling */}
@@ -204,7 +230,7 @@ export default function AboutPage() {
             <div className="lg:col-span-5 relative">
               <div className="relative rounded-3xl overflow-hidden shadow-elevated border-2 border-white aspect-[4/3] group">
                 <Image
-                  src="/hospital-construction-main.jpg"
+                  src={storyImage}
                   alt="Hospital construction engineering by Alex Healthcare System"
                   fill
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
@@ -228,7 +254,7 @@ export default function AboutPage() {
                 <MapPin className="w-5 h-5 text-coral-accent mt-0.5 flex-shrink-0" />
                 <div className="text-xs text-charcoal-green/80 font-lora">
                   <strong className="text-teal-deep block mb-0.5 font-serif font-bold text-sm">Regional Operational Reach:</strong>
-                  Guwahati HQ with active project sites across Assam (Hojai, Nagaon, Guwahati), Meghalaya, Tripura, Arunachal Pradesh, and West Bengal.
+                  {regionalReach}
                 </div>
               </div>
             </div>
@@ -254,14 +280,14 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 anim-view">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <div className="inline-flex items-center space-x-2 text-[11px] font-bold uppercase tracking-widest text-teal-deep bg-white border border-teal-deep/20 px-3.5 py-1 rounded-full shadow-xs">
-              <Sparkles className="w-3 h-3 text-coral-accent" />
-              <span className="font-jost">Guiding Philosophy &bull; Engineering Standards</span>
+              <ShieldCheck className="w-3.5 h-3.5 text-forest" />
+              <span className="font-jost">{valuesBadge}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal-green tracking-tight font-serif">
-              The Principles Behind Every Facility We Build
+              {valuesHeadline}
             </h2>
             <p className="text-sm sm:text-base text-charcoal-green/75 font-lora">
-              Engineering decisions grounded in clinical safety, structural resilience, and operational efficiency.
+              {valuesSubtext}
             </p>
           </div>
 

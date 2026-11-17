@@ -10,7 +10,6 @@ import {
   MapPin, 
   ArrowUpRight, 
   ShieldCheck, 
-  Sparkles,
   PhoneCall
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -76,7 +75,7 @@ export default function GalleryLightbox({
             <div className="flex items-center space-x-2 sm:space-x-3 overflow-hidden">
               {currentItem.isPrimaryAsset ? (
                 <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-coral-accent/90 text-white flex-shrink-0">
-                  <Sparkles className="w-3 h-3 mr-0.5" />
+                  <ShieldCheck className="w-3.5 h-3.5 mr-0.5" />
                   <span>Verified Asset Photo</span>
                 </span>
               ) : (

@@ -12,8 +12,7 @@ import {
   Award, 
   Building2, 
   Wrench,
-  Layers,
-  Sparkles
+  Layers
 } from 'lucide-react';
 
 export default function TrustStrip({ content }) {
@@ -185,7 +184,7 @@ export default function TrustStrip({ content }) {
         <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-[#1b5b4a]/20 gap-4">
           <div>
             <div className="inline-flex items-center space-x-1.5 text-[11px] font-bold uppercase tracking-wider text-teal-deep bg-white/90 border border-teal-deep/25 px-3.5 py-1 rounded-full mb-2 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-coral-accent" />
+              <ShieldCheck className="w-3.5 h-3.5 text-forest" />
               <span className="font-jost tracking-widest">{badgeText}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-charcoal-green tracking-tight font-serif">

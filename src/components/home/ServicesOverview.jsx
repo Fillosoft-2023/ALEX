@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Sparkles, Filter } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Filter } from 'lucide-react';
 import { servicesData } from '@/data/servicesData';
 
 const CATEGORY_TABS = [
@@ -23,8 +23,8 @@ export default function ServicesOverview({ content }) {
 
   const dynamicTabs = [
     { id: 'all', label: content?.tab_all || 'All Disciplines' },
-    { id: 'civil', label: content?.tab_civil || 'Civil & Hospital Build' },
-    { id: 'ot', label: content?.tab_ot || 'Modular OTs & ICU' },
+    { id: 'civil', label: content?.tab_civil || content?.tab_infra || 'Civil & Hospital Build' },
+    { id: 'ot', label: content?.tab_ot || content?.tab_clinical || 'Modular OTs & ICU' },
     { id: 'mgps', label: content?.tab_mgps || 'MGPS & Gas Pipelines' },
   ];
 
@@ -94,7 +94,7 @@ export default function ServicesOverview({ content }) {
             className="max-w-2xl space-y-2.5 sm:space-y-3"
           >
             <div className="inline-flex items-center space-x-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-teal-deep bg-white/70 backdrop-blur-md border border-white/60 px-3.5 py-1 rounded-full shadow-sm font-jost">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <ShieldCheck className="w-3.5 h-3.5 text-forest" />
               <span>{badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-charcoal-green tracking-tight leading-snug font-cormorant">

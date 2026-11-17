@@ -5,7 +5,7 @@ import Image from 'next/image';
 import {
   MapPin,
   ZoomIn,
-  Sparkles,
+  ShieldCheck,
   Building2,
   Activity,
   Layers,
@@ -87,7 +87,7 @@ export default function GalleryGrid({
                     }`}
                 >
                   {cat.id === 'asset-photos' && (
-                    <Sparkles className={`w-3.5 h-3.5 ${isActive ? 'text-amber-300' : 'text-coral-accent'}`} />
+                    <ShieldCheck className={`w-3.5 h-3.5 ${isActive ? 'text-amber-300' : 'text-coral-accent'}`} />
                   )}
                   <span>{cat.name}</span>
                   <span className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-mono font-bold transition-colors ${isActive ? 'bg-amber-400/30 text-amber-300' : 'bg-teal-deep/10 text-teal-deep'
@@ -166,7 +166,7 @@ export default function GalleryGrid({
                 <div className="relative z-10 p-3.5 sm:p-4 flex items-center justify-between gap-2 pointer-events-none">
                   {item.isPrimaryAsset ? (
                     <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold tracking-wider uppercase bg-teal-deep/90 text-amber-300 backdrop-blur-md border border-amber-400/40 shadow-sm">
-                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      <ShieldCheck className="w-3 h-3 text-amber-400" />
                       <span>Verified Facade</span>
                     </span>
                   ) : (

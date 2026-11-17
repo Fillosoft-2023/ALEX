@@ -7,6 +7,7 @@ import { ArrowRight, ChevronRight } from 'lucide-react';
 import CountingNumber from '@/components/ui/CountingNumber';
 import HeroTypewriter from '@/components/home/HeroTypewriter';
 import ConsultationModuleBox from '@/components/home/ConsultationModuleBox';
+import { mediaUrl } from '@/lib/media';
 
 const parseStatTarget = (raw) => {
   if (typeof raw === 'number') return { target: raw, suffix: '' };
@@ -65,35 +66,57 @@ export default function Hero({ content }) {
 
   const badgeText = content?.badge || "Integrated Healthcare Infrastructure Partner • Northeast India";
   const subtextText = content?.subtext || "Comprehensive hospital planning, civil engineering, ISO cleanroom modular operating theatres, and certified medical gas pipelines across Northeast India.";
-  const videoSrc = content?.video_url || "/NEW.mp4";
+  const isVideoUrl = (url) => Boolean(url) && /\.(mp4|webm|mov)(\?.*)?$/i.test(url);
+  const rawVideo = content?.video_url;
+  const rawPhoto = content?.photo || content?.featured_image || content?.image_url;
+  const selectedKey = content?.selected_preview_key;
+
+  // Decide which media the admin picked: the last uploaded/selected one wins, else photo, else video.
+  let chosen = selectedKey ? content?.[selectedKey] || rawVideo || rawPhoto : rawPhoto || rawVideo;
+  chosen = mediaUrl(chosen);
+  const showPhoto = Boolean(chosen) && !isVideoUrl(chosen) && (selectedKey ? !/video/i.test(selectedKey) : true);
+  const photoSrc = showPhoto ? chosen : null;
+  const videoSrc = !showPhoto && chosen ? chosen : "/NEW.mp4";
 
   useEffect(() => {
-    // Attempt auto-play when component mounts
+    // Attempt auto-play when component mounts or the video source changes
     if (videoRef.current) {
+      videoRef.current.load();
       videoRef.current.play().catch(() => {});
     }
-  }, []);
+  }, [videoSrc]);
 
   return (
     <section 
       ref={sectionRef}
       className="relative w-full min-h-screen h-screen flex items-center overflow-hidden bg-charcoal-green text-white pt-24 pb-12 sm:pt-28 sm:pb-16 border-b border-teal-deep/20"
     >
-      {/* Full Screen Background Video Layer */}
+      {/* Full Screen Background Layer (admin-selected photo or video) */}
       <div className="absolute inset-0 z-0 overflow-hidden w-full h-full">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/video-thumb.jpg"
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        >
-          <source src={videoSrc} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {photoSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={photoSrc}
+            src={photoSrc}
+            alt="Alex Healthcare hero background"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        ) : (
+          <video
+            key={videoSrc}
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/video-thumb.jpg"
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          >
+            <source src={videoSrc} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
 
         {/* Directional Gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent pointer-events-none" />
