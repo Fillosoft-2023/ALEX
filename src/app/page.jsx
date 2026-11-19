@@ -3,7 +3,10 @@ import Hero from '@/components/home/Hero';
 import TrustStrip from '@/components/home/TrustStrip';
 import ServicesOverview from '@/components/home/ServicesOverview';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
-import { getProjects, getPageData } from '@/lib/api';
+import { getProjects, getGalleryItems, getPageData } from '@/lib/api';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // Defer below-the-fold components to reduce initial JS execution and improve FCP/LCP
 const WhyAlexHealthcare = dynamic(() => import('@/components/home/WhyAlexHealthcare'));
@@ -19,8 +22,9 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  const [projects, pageData] = await Promise.all([
+  const [projects, gallery, pageData] = await Promise.all([
     getProjects(),
+    getGalleryItems(),
     getPageData('home')
   ]);
 
@@ -77,7 +81,7 @@ export default async function HomePage() {
 
       {/* 7. Healthcare Infrastructure & Facilities Photo Gallery */}
       {isSectionVisible('HomeGallerySection') && (
-        <HomeGallerySection content={getSectionContent('HomeGallerySection')} />
+        <HomeGallerySection initialGallery={gallery} content={getSectionContent('HomeGallerySection')} />
       )}
 
       {/* 8. Verified Client Testimonials */}

@@ -1,13 +1,26 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import GalleryGrid from '@/components/gallery/GalleryGrid';
 import { galleryItems } from '@/data/galleryData';
+import { getGalleryItems } from '@/lib/api';
 
-export default function HomeGallerySection({ content }) {
+export default function HomeGallerySection({ content, initialGallery }) {
+  const [items, setItems] = useState(initialGallery || galleryItems);
   const badgeText = content?.badge || 'Visual Documentation // Project Sites';
   const headlineText = content?.headline || 'Healthcare Infrastructure Gallery';
+
+  useEffect(() => {
+    if (initialGallery && initialGallery.length > 0) {
+      setItems(initialGallery);
+    } else {
+      getGalleryItems().then((data) => {
+        if (data && data.length > 0) setItems(data);
+      });
+    }
+  }, [initialGallery]);
   return (
     <section className="relative w-full bg-[#fcfbfa] py-12 sm:py-16 border-b border-teal-deep/15 overflow-hidden">
       {/* Subtle CAD Drafting Grid Background */}
@@ -40,7 +53,7 @@ export default function HomeGallerySection({ content }) {
             href="/gallery"
             className="inline-flex items-center text-xs sm:text-sm font-bold text-teal-deep hover:text-amber-700 transition-colors group px-4 py-2 rounded-full border border-teal-deep/20 hover:border-teal-deep/40 bg-white shadow-2xs"
           >
-            <span>View All ({galleryItems.length})</span>
+            <span>View All ({items.length})</span>
             <ArrowRight className="ml-1.5 w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -50,6 +63,7 @@ export default function HomeGallerySection({ content }) {
           initialCategory="all" 
           limit={8} 
           showFilters={true} 
+          initialItems={items}
         />
 
       </div>
