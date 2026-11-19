@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import Hero from '@/components/home/Hero';
 import TrustStrip from '@/components/home/TrustStrip';
 import ServicesOverview from '@/components/home/ServicesOverview';
@@ -9,12 +9,12 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 // Defer below-the-fold components to reduce initial JS execution and improve FCP/LCP
-const WhyAlexHealthcare = dynamic(() => import('@/components/home/WhyAlexHealthcare'));
-const ProcessTimeline = dynamic(() => import('@/components/home/ProcessTimeline'));
-const HomeGallerySection = dynamic(() => import('@/components/home/HomeGallerySection'));
-const TestimonialsSection = dynamic(() => import('@/components/home/TestimonialsSection'));
-const HomeCTA = dynamic(() => import('@/components/home/HomeCTA'));
-const FaqAccordion = dynamic(() => import('@/components/home/FaqAccordion'));
+const WhyAlexHealthcare = nextDynamic(() => import('@/components/home/WhyAlexHealthcare'));
+const ProcessTimeline = nextDynamic(() => import('@/components/home/ProcessTimeline'));
+const HomeGallerySection = nextDynamic(() => import('@/components/home/HomeGallerySection'));
+const TestimonialsSection = nextDynamic(() => import('@/components/home/TestimonialsSection'));
+const HomeCTA = nextDynamic(() => import('@/components/home/HomeCTA'));
+const FaqAccordion = nextDynamic(() => import('@/components/home/FaqAccordion'));
 
 export const metadata = {
   title: 'Alex Healthcare System | Hospital Construction & Healthcare Infrastructure',
