@@ -114,9 +114,12 @@ export const metadata = {
     images: ['/alexreal.png'],
   },
   icons: {
-    icon: '/alexhd.png',
-    shortcut: '/alexhd.png',
-    apple: '/alexhd.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '512x512' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
 };
 
@@ -175,6 +178,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${cormorant.variable} ${playfair.variable} ${plusJakarta.variable} ${mephisto.variable} ${chavalard.variable} ${pierknife.variable} scroll-smooth`}>
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

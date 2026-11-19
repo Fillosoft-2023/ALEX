@@ -47,7 +47,7 @@ export default function ServicesPage() {
 
       {/* 1. Page Hero - Architectural Identity with CAD Grid & Ambient Halos */}
       <section className="relative w-full bg-charcoal-green text-white pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden border-b border-teal-deep/20">
-        
+
         {/* Background photo & overlay */}
         <div className="absolute inset-0 z-0 opacity-20 mix-blend-luminosity pointer-events-none">
           <Image
@@ -62,7 +62,7 @@ export default function ServicesPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal-green via-charcoal-green/95 to-charcoal-green/80 z-0" />
 
         {/* Blueprint CAD Drafting Grid Overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.2] pointer-events-none z-0"
           style={{
             backgroundImage: `
@@ -87,11 +87,11 @@ export default function ServicesPage() {
                 <span className="w-2 h-2 rounded-full bg-coral-accent animate-pulse" />
                 <span className="font-jost uppercase tracking-widest text-[11px] text-sage">Healthcare Infrastructure Disciplines &bull; Integrated EPC</span>
               </div>
-              
+
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.2] text-white font-serif">
                 Comprehensive Hospital Engineering &amp; Infrastructure Development
               </h1>
-              
+
               <p className="text-base sm:text-lg text-ivory/85 leading-relaxed font-lora max-w-xl">
                 From site feasibility and civil construction to specialized cleanroom modular OTs, medical gas pipelines, and licensing support, we provide single-source accountability for healthcare institutions across Northeast India.
               </p>
@@ -159,7 +159,7 @@ export default function ServicesPage() {
       {/* 2. Categorized Services Deck with Luxury Elevated Cards */}
       <section className="relative w-full py-16 sm:py-24 border-b border-teal-deep/15 overflow-hidden">
         {/* Subtle CAD grid */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.25] pointer-events-none"
           style={{
             backgroundImage: `
@@ -267,7 +267,7 @@ export default function ServicesPage() {
       {/* 3. Engineering Consultation Plaque */}
       <section className="relative w-full bg-[#f4f7f4] py-16 sm:py-24 border-b border-teal-deep/15 text-center overflow-hidden">
         {/* Subtle grid */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.25] pointer-events-none"
           style={{
             backgroundImage: `

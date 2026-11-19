@@ -15,7 +15,7 @@ export default function HomeCTA({ content }) {
 
   return (
     <section className="relative w-full bg-charcoal-green text-white py-16 sm:py-24 overflow-hidden border-b border-teal-deep/20">
-      
+
       {/* Background Architectural Blueprint Image & Overlay */}
       <div className="absolute inset-0 z-0 opacity-20 mix-blend-luminosity pointer-events-none">
         <Image
@@ -28,7 +28,7 @@ export default function HomeCTA({ content }) {
       </div>
 
       {/* Blueprint CAD Drafting Grid Overlay */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.25] pointer-events-none z-0"
         style={{
           backgroundImage: `
@@ -37,7 +37,7 @@ export default function HomeCTA({ content }) {
           `,
           backgroundSize: '40px 40px'
         }}
-        aria-hidden="true" 
+        aria-hidden="true"
       />
 
       {/* Atmospheric Concentric Sonar Pulse Animation */}
@@ -52,9 +52,9 @@ export default function HomeCTA({ content }) {
       <div className="absolute -bottom-16 left-10 w-[450px] h-[450px] bg-amber-400/15 rounded-full blur-3xl pointer-events-none animate-floatSlowReverse" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
-        
+
         {/* Top Verified Badge */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -68,7 +68,7 @@ export default function HomeCTA({ content }) {
         </motion.div>
 
         {/* Headline & Subtitle */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -84,7 +84,7 @@ export default function HomeCTA({ content }) {
         </motion.div>
 
         {/* Action Buttons */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -121,7 +121,7 @@ export default function HomeCTA({ content }) {
 
           <span className="hidden sm:inline text-white/30">&bull;</span>
 
-          <a 
+          <a
             href={`tel:${companyData.contact.phoneRaw}`}
             className="flex items-center space-x-2 hover:text-coral-accent transition-colors font-mono"
           >
@@ -131,7 +131,7 @@ export default function HomeCTA({ content }) {
 
           <span className="hidden sm:inline text-white/30">&bull;</span>
 
-          <a 
+          <a
             href={`mailto:${companyData.contact.email}`}
             className="flex items-center space-x-2 hover:text-coral-accent transition-colors font-mono"
           >

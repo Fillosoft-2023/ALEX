@@ -17,11 +17,11 @@ export default async function GalleryPage() {
   const count = items && items.length > 0 ? items.length : galleryItems.length;
   return (
     <div className="w-full bg-[#faf8f2] min-h-screen relative overflow-hidden">
-      
+
       {/* Architectural Background Pattern & Gradient Mesh */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
         {/* Subtle Architectural Blueprint Grid */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.45]"
           style={{
             backgroundImage: `
@@ -33,7 +33,7 @@ export default async function GalleryPage() {
         />
 
         {/* Diagonal architectural drafting hatch accents */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.25]"
           style={{
             backgroundImage: `radial-gradient(circle at 18px 18px, rgba(16, 75, 77, 0.18) 1.5px, transparent 0)`,
@@ -52,10 +52,10 @@ export default async function GalleryPage() {
 
       {/* Main Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16 sm:pb-24">
-        
+
         {/* Unified Hero Header Section */}
         <div className="max-w-4xl mb-8 sm:mb-10 space-y-4">
-          
+
           {/* Top Pill Badge */}
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-teal-deep/20 text-teal-deep text-xs font-semibold tracking-wide shadow-subtle backdrop-blur-md">
             <Camera className="w-3.5 h-3.5 text-coral-accent" />
@@ -93,16 +93,16 @@ export default async function GalleryPage() {
         <div className="w-full h-px bg-teal-deep/15 mb-6 sm:mb-8" />
 
         {/* Main Gallery Grid with Dynamic Category Filter Pills */}
-        <GalleryGrid 
-          initialCategory="all" 
-          showFilters={true} 
+        <GalleryGrid
+          initialCategory="all"
+          showFilters={true}
           initialItems={items}
         />
 
         {/* Bottom Consultation Call-To-Action Banner */}
         <div className="mt-16 sm:mt-20 rounded-2xl bg-gradient-to-r from-charcoal-green to-teal-dark p-6 sm:p-10 text-white shadow-elevated border border-white/15 relative overflow-hidden">
           <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-forest/30 rounded-full blur-3xl pointer-events-none" />
-          
+
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2 text-center md:text-left max-w-2xl">
               <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-sage">
