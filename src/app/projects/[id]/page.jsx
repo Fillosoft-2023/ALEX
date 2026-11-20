@@ -20,6 +20,7 @@ import { getProjects, getProjectBySlug } from '@/lib/api';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const projects = await getProjects();

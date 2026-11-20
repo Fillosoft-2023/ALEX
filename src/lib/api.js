@@ -82,14 +82,25 @@ export async function getProjects() {
 }
 
 export async function getProjectBySlug(slug) {
+  if (!slug) return null;
+  const decoded = decodeURIComponent(String(slug)).trim().toLowerCase();
   try {
     const projects = await getProjects();
-    const found = projects.find(p => p.slug === slug || String(p.id) === String(slug));
+    const found = projects.find(p => {
+      const pSlug = String(p.slug || '').trim().toLowerCase();
+      const pId = String(p.id || '').trim();
+      const pTitleSlug = String(p.title || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      return pSlug === decoded || pId === decoded || pTitleSlug === decoded;
+    });
     if (found) return found;
   } catch (err) {
     console.warn('Error finding project:', err.message);
   }
-  return projectsData.find(p => p.slug === slug || String(p.id) === String(slug)) || null;
+  return projectsData.find(p => {
+    const pSlug = String(p.slug || '').trim().toLowerCase();
+    const pId = String(p.id || '').trim();
+    return pSlug === decoded || pId === decoded;
+  }) || null;
 }
 
 export async function getGalleryItems() {
