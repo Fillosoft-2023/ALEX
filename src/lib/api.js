@@ -5,7 +5,12 @@ import { mediaUrl, resolveMedia } from '@/lib/media';
 
 export { mediaUrl, resolveMedia };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://erp.alexhealthcaresystems.com/api/v1' : 'http://localhost:8000/api/v1');
+const rawEnvUrl = process.env.NEXT_PUBLIC_API_URL;
+const isProd = process.env.NODE_ENV === 'production';
+
+const API_BASE = (isProd && (!rawEnvUrl || rawEnvUrl.includes('localhost') || rawEnvUrl.includes('127.0.0.1')))
+  ? 'https://erp.alexhealthcaresystems.com/api/v1'
+  : (rawEnvUrl || 'https://erp.alexhealthcaresystems.com/api/v1');
 const SITE_KEY = 'alex_healthcare';
 
 function normalizeProjectCategoryKey(key, category) {
