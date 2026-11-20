@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { 
   Camera, 
@@ -15,6 +16,22 @@ import {
 export default function ProjectGallery({ images = [], projectTitle = 'Project' }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (lightboxOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [lightboxOpen]);
 
   // Normalize image data to { src, title, caption }
   const normalizedImages = (images && images.length > 0 ? images : []).map((img, idx) => {
@@ -205,14 +222,14 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
         </div>
       )}
 
-      {/* Fullscreen Lightbox Modal */}
-      {lightboxOpen && (
+      {/* Fullscreen Lightbox Modal mounted via React Portal to document.body */}
+      {mounted && lightboxOpen && createPortal(
         <div 
           id="gallery-lightbox-modal"
           role="dialog"
           aria-modal="true"
           onClick={() => setLightboxOpen(false)}
-          className="fixed inset-0 z-[99999] bg-black/98 backdrop-blur-xl flex flex-col justify-between p-4 sm:p-8 animate-fadeIn"
+          className="fixed inset-0 z-[999999] bg-black/98 backdrop-blur-2xl flex flex-col justify-between p-4 sm:p-8 animate-fadeIn"
         >
           {/* Direct Circular Cross (✕) Cut Button - Ultra High Z-Index Above All Navbars */}
           <button
@@ -222,7 +239,7 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
               e.stopPropagation();
               setLightboxOpen(false);
             }}
-            className="fixed top-5 right-5 sm:top-6 sm:right-6 z-[100000] flex items-center justify-center size-12 sm:size-14 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-[0_0_30px_rgba(239,68,68,0.9)] border-2 border-white cursor-pointer hover:scale-110 active:scale-95 transition-all"
+            className="fixed top-5 right-5 sm:top-6 sm:right-6 z-[1000000] flex items-center justify-center size-12 sm:size-14 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-[0_0_35px_rgba(239,68,68,1)] border-2 border-white cursor-pointer hover:scale-110 active:scale-95 transition-all"
             title="Cut / Close Photo (Esc)"
             aria-label="Close Expanded Photo"
           >
@@ -320,7 +337,8 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
               </div>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>
