@@ -5,9 +5,30 @@ const nextConfig = {
   compress: true,
   images: {
     unoptimized: true,
+    dangerouslyAllowLocalIP: true,
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000,
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'erp.alexhealthcaresystems.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'alexhealthcaresystems.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.alexhealthcaresystems.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'curatechengineering.com',
+        pathname: '/**',
+      },
       {
         protocol: 'http',
         hostname: '127.0.0.1',
@@ -19,6 +40,14 @@ const nextConfig = {
         hostname: 'localhost',
         port: '8000',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
       },
     ],
   },

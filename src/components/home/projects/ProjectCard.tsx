@@ -63,9 +63,10 @@ export default function ProjectCard({ project, index, isWide = false }: ProjectC
             {/* Visual Column */}
             <div className="relative w-full lg:col-span-7 h-64 sm:h-72 lg:h-full min-h-[260px] overflow-hidden bg-[#0a1e19]">
               <Image
-                src={project.image}
+                src={project.image || '/heroa-bg.jpg'}
                 alt={project.title}
                 fill
+                unoptimized
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 className="object-cover object-center group-hover:scale-106 transition-transform duration-700 ease-out"
               />

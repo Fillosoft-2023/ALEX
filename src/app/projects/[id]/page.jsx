@@ -96,9 +96,10 @@ export default async function ProjectDetailPage({ params }) {
       <section className="relative w-full bg-charcoal-green text-white py-16 sm:py-24 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-40">
           <Image
-            src={project.image}
+            src={project.image || '/heroa-bg.jpg'}
             alt={project.title}
             fill
+            unoptimized
             priority
             className="object-cover object-center animate-kenburns"
             sizes="100vw"
@@ -224,7 +225,7 @@ export default async function ProjectDetailPage({ params }) {
               )}
 
               {/* Scope of Work */}
-              {project.scopeList && project.scopeList.length > 0 && (
+              {Array.isArray(project.scopeList) && project.scopeList.length > 0 && (
                 <div className="bg-white rounded-2xl p-7 sm:p-8 border border-teal-deep/15 shadow-subtle space-y-6">
                   <h3 className="text-lg sm:text-xl font-bold text-charcoal-green border-b border-teal-deep/10 pb-3">
                     Delivered Infrastructure Scope

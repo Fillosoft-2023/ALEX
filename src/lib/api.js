@@ -120,6 +120,7 @@ export async function getGalleryItems() {
       return resolveMedia(json.data).map(item => ({
         ...item,
         categoryKey: item.category_key || item.categoryKey,
+        projectId: item.project_slug || item.projectId || item.project_id,
       }));
     }
     return galleryItems;

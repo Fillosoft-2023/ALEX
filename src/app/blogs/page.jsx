@@ -1,11 +1,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { getPosts } from '@/lib/api';
+import { mediaUrl } from '@/lib/media';
 
 export const metadata = {
   title: 'Healthcare Architecture & Engineering Insights | Alex Healthcare Facilities',
   description: 'Technical articles, NABH planning guidelines, cleanroom engineering, and modular OT case studies from our hospital infrastructure specialists.',
 };
+
+function resolvePostCover(post) {
+  if (!post) return '/heroa-bg.jpg';
+  const firstPhoto = Array.isArray(post.gallery) ? post.gallery.find(g => !/\.(mp4|webm|ogg|mov|mkv)$/i.test(g)) : null;
+  const raw = post.image || firstPhoto || '/heroa-bg.jpg';
+  return mediaUrl(raw);
+}
 
 export default async function BlogIndexPage() {
   const postsData = await getPosts();
@@ -39,11 +47,12 @@ export default async function BlogIndexPage() {
               className="group block relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:border-teal-500/50 transition-all duration-300"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-7 relative h-72 sm:h-96 w-full overflow-hidden">
+                <div className="lg:col-span-7 relative h-72 sm:h-96 w-full overflow-hidden bg-neutral-900">
                   <Image
-                    src={featured.image || (Array.isArray(featured.gallery) && featured.gallery.find(g => !/\.(mp4|webm|ogg|mov|mkv)$/i.test(g))) || '/heroa-bg.jpg'}
+                    src={resolvePostCover(featured)}
                     alt={featured.title}
                     fill
+                    unoptimized
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     priority
                   />
@@ -84,11 +93,12 @@ export default async function BlogIndexPage() {
               href={`/blogs/${post.slug}`}
               className="group flex flex-col rounded-xl border border-neutral-800 bg-neutral-900/30 overflow-hidden hover:border-teal-500/40 transition-all duration-300"
             >
-              <div className="relative h-52 w-full overflow-hidden bg-neutral-800">
+              <div className="relative h-52 w-full overflow-hidden bg-neutral-900">
                 <Image
-                  src={post.image || (Array.isArray(post.gallery) && post.gallery.find(g => !/\.(mp4|webm|ogg|mov|mkv)$/i.test(g))) || '/heroa-bg.jpg'}
+                  src={resolvePostCover(post)}
                   alt={post.title}
                   fill
+                  unoptimized
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-neutral-950/80 backdrop-blur-md text-teal-400 border border-neutral-700">

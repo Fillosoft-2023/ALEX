@@ -86,9 +86,10 @@ export default function ProjectsGrid({ initialProjects = null }) {
               {/* Project Image */}
               <div className="relative h-56 w-full overflow-hidden bg-charcoal-green">
                 <Image
-                  src={project.image}
+                  src={project.image || '/heroa-bg.jpg'}
                   alt={project.title}
                   fill
+                  unoptimized
                   className="object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
@@ -121,20 +122,22 @@ export default function ProjectsGrid({ initialProjects = null }) {
                 </p>
 
                 {/* Scope Highlights */}
-                <div className="pt-3 border-t border-teal-deep/10">
-                  <div className="text-[10px] font-bold uppercase tracking-widest font-jost text-teal-deep mb-2 flex items-center space-x-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-forest" />
-                    <span>Verified Scope Highlights:</span>
+                {Array.isArray(project.scopeList) && project.scopeList.length > 0 && (
+                  <div className="pt-3 border-t border-teal-deep/10">
+                    <div className="text-[10px] font-bold uppercase tracking-widest font-jost text-teal-deep mb-2 flex items-center space-x-1">
+                      <ShieldCheck className="w-3.5 h-3.5 text-forest" />
+                      <span>Verified Scope Highlights:</span>
+                    </div>
+                    <ul className="space-y-1.5 text-xs text-charcoal-green/85 font-lora">
+                      {project.scopeList.slice(0, 3).map((item, idx) => (
+                        <li key={idx} className="flex items-start space-x-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-coral-accent mt-0.5 flex-shrink-0" />
+                          <span className="line-clamp-1">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-1.5 text-xs text-charcoal-green/85 font-lora">
-                    {project.scopeList.slice(0, 3).map((item, idx) => (
-                      <li key={idx} className="flex items-start space-x-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-coral-accent mt-0.5 flex-shrink-0" />
-                        <span className="line-clamp-1">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                )}
               </div>
             </div>
 

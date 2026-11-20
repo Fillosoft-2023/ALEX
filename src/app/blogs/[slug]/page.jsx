@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getPostBySlug } from '@/lib/api';
+import { mediaUrl } from '@/lib/media';
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -26,6 +27,16 @@ export default async function BlogPostPage({ params }) {
     post.video_embed &&
     (post.video_embed.includes('youtube.com') || post.video_embed.includes('youtu.be'))
   );
+
+  const coverPhoto = mediaUrl(
+    post.image ||
+    (Array.isArray(post.gallery) && post.gallery.find((g) => !/\.(mp4|webm|ogg|mov|mkv)$/i.test(g))) ||
+    '/heroa-bg.jpg'
+  );
+
+  const galleryPhotos = Array.isArray(post.gallery)
+    ? post.gallery.filter((g) => !/\.(mp4|webm|ogg|mov|mkv)$/i.test(g)).map(mediaUrl)
+    : [];
 
   return (
     <article className="min-h-screen bg-neutral-950 text-neutral-100 pt-32 pb-24">
@@ -55,12 +66,13 @@ export default async function BlogPostPage({ params }) {
         </div>
 
         {/* Cover Photo */}
-        {post.image && (
-          <div className="relative h-72 sm:h-[450px] w-full rounded-2xl overflow-hidden mb-12 border border-neutral-800">
+        {coverPhoto && (
+          <div className="relative h-72 sm:h-[450px] w-full rounded-2xl overflow-hidden mb-12 border border-neutral-800 bg-neutral-900">
             <Image
-              src={post.image}
+              src={coverPhoto}
               alt={post.title}
               fill
+              unoptimized
               className="object-cover"
               priority
             />
@@ -118,20 +130,20 @@ export default async function BlogPostPage({ params }) {
         </div>
 
         {/* Multi-Photo Gallery (if photos are uploaded) */}
-        {post.gallery && post.gallery.length > 0 && (
+        {galleryPhotos.length > 0 && (
           <section className="mt-14 pt-10 border-t border-neutral-800">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  Photo Documentation & Gallery
+                  Photo Documentation &amp; Gallery
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-400 mt-1">
-                  High-resolution visual archives and clinical facility references ({post.gallery.length} photos)
+                  High-resolution visual archives and clinical facility references ({galleryPhotos.length} photos)
                 </p>
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {post.gallery.map((photoUrl, idx) => (
+              {galleryPhotos.map((photoUrl, idx) => (
                 <div
                   key={idx}
                   className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900 transition-all duration-300 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/5"
@@ -140,11 +152,12 @@ export default async function BlogPostPage({ params }) {
                     src={photoUrl}
                     alt={`${post.title} visual archive ${idx + 1}`}
                     fill
+                    unoptimized
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
                     <span className="text-[11px] font-mono text-teal-400">
-                      Photo {idx + 1} of {post.gallery?.length}
+                      Photo {idx + 1} of {galleryPhotos.length}
                     </span>
                   </div>
                 </div>

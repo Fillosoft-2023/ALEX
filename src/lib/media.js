@@ -1,5 +1,7 @@
 // Client/server-safe helpers for media served by the admin panel.
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://erp.alexhealthcaresystems.com/api/v1' : 'http://localhost:8000/api/v1');
+const rawEnv = process.env.NEXT_PUBLIC_API_URL;
+const isProd = process.env.NODE_ENV === 'production';
+const API_BASE = rawEnv || (isProd ? 'https://erp.alexhealthcaresystems.com/api/v1' : 'http://localhost:8000/api/v1');
 export const API_ORIGIN = API_BASE.replace(/\/api\/v\d+\/?$/, '');
 
 /**
@@ -9,13 +11,25 @@ export const API_ORIGIN = API_BASE.replace(/\/api\/v\d+\/?$/, '');
 export function mediaUrl(path) {
   if (!path || typeof path !== 'string') return path;
   const trimmed = path.trim();
+  if (!trimmed) return trimmed;
   if (trimmed.startsWith('blob:') || trimmed.startsWith('data:')) return trimmed;
+
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    if ((trimmed.includes('://127.0.0.1:8000') || trimmed.includes('://localhost:8000')) && !API_ORIGIN.includes('localhost') && !API_ORIGIN.includes('127.0.0.1')) {
+      return trimmed.replace(/^https?:\/\/(127\.0\.0\.1|localhost):8000/, API_ORIGIN);
+    }
+    return trimmed;
+  }
+
   if (trimmed.startsWith('/storage/')) return `${API_ORIGIN}${trimmed}`;
   if (trimmed.startsWith('storage/')) return `${API_ORIGIN}/${trimmed}`;
   if (/^(cms_media|showcase_projects|blog_posts|gallery|sites|project_documents)\//i.test(trimmed)) {
     return `${API_ORIGIN}/storage/${trimmed}`;
   }
-  return trimmed.replace(/^https?:\/\/(127\.0\.0\.1|localhost):8000\//, `${API_ORIGIN}/`);
+  if (/^\/(cms_media|showcase_projects|blog_posts|gallery|sites|project_documents)\//i.test(trimmed)) {
+    return `${API_ORIGIN}/storage${trimmed}`;
+  }
+  return trimmed;
 }
 
 /** Recursively rewrite every /storage/... string inside API data (images, galleries, section content). */

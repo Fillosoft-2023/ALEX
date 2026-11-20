@@ -44,9 +44,10 @@ export default function FeaturedProject({ project }: FeaturedProjectProps) {
             transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
           >
             <Image
-              src={project.image}
+              src={project.image || '/heroa-bg.jpg'}
               alt={project.title}
               fill
+              unoptimized
               priority
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover object-center"
