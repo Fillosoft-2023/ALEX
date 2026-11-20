@@ -214,8 +214,23 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
           onClick={() => setLightboxOpen(false)}
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-between p-4 sm:p-8 animate-fadeIn"
         >
+          {/* Prominent High-Visibility Floating Close / Cut Button */}
+          <button
+            id="lightbox-cut-close-btn"
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightboxOpen(false);
+            }}
+            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-forest hover:bg-white text-white hover:text-charcoal-green font-sans text-xs font-bold uppercase tracking-wider shadow-[0_0_25px_rgba(46,139,87,0.6)] transition-all cursor-pointer hover:scale-105 active:scale-95 border-2 border-white/20"
+            title="Close / Cut Photo (Esc)"
+          >
+            <X className="w-4 h-4 stroke-[3]" />
+            <span>Close (✕)</span>
+          </button>
+
           {/* Lightbox Topbar */}
-          <div className="flex items-center justify-between text-white z-20">
+          <div className="flex items-center justify-between text-white z-20 pr-28 sm:pr-36">
             <div className="space-y-0.5">
               <span className="text-xs text-coral-accent font-bold uppercase tracking-wider">
                 {projectTitle} &bull; Photo {selectedIndex + 1} of {normalizedImages.length}
@@ -229,9 +244,11 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
               id="lightbox-close-btn"
               type="button"
               onClick={() => setLightboxOpen(false)}
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/20 hover:bg-red-500 text-white border border-red-500/40 transition-colors text-xs font-bold"
+              title="Close Photo (Esc)"
             >
-              <X className="w-5 h-5" />
+              <X className="w-3.5 h-3.5" />
+              <span>Cut Photo</span>
             </button>
           </div>
 

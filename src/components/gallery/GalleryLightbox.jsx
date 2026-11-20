@@ -95,10 +95,12 @@ export default function GalleryLightbox({
               <button
                 type="button"
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-ivory/80 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-deep"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/20 hover:bg-red-500 text-white border border-red-500/40 transition-colors text-xs font-bold"
                 aria-label="Close photo preview"
+                title="Close Photo (Esc)"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 stroke-[2.5]" />
+                <span>Close (✕)</span>
               </button>
             </div>
           </div>
