@@ -214,7 +214,7 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
           onClick={() => setLightboxOpen(false)}
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-between p-4 sm:p-8 animate-fadeIn"
         >
-          {/* Prominent High-Visibility Floating Close / Cut Button */}
+          {/* Direct Circular Cross (✕) Cut Button */}
           <button
             id="lightbox-cut-close-btn"
             type="button"
@@ -222,11 +222,10 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
               e.stopPropagation();
               setLightboxOpen(false);
             }}
-            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-forest hover:bg-white text-white hover:text-charcoal-green font-sans text-xs font-bold uppercase tracking-wider shadow-[0_0_25px_rgba(46,139,87,0.6)] transition-all cursor-pointer hover:scale-105 active:scale-95 border-2 border-white/20"
-            title="Close / Cut Photo (Esc)"
+            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex items-center justify-center size-11 sm:size-12 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-[0_0_20px_rgba(239,68,68,0.8)] border-2 border-white cursor-pointer hover:scale-110 active:scale-95 transition-all"
+            title="Cut / Close Photo (✕)"
           >
-            <X className="w-4 h-4 stroke-[3]" />
-            <span>Close (✕)</span>
+            <X className="size-6 stroke-[3]" />
           </button>
 
           {/* Lightbox Topbar */}
