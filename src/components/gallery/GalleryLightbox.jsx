@@ -50,7 +50,7 @@ export default function GalleryLightbox({
   return (
     <AnimatePresence>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-charcoal-green/95 backdrop-blur-md"
+        className="fixed inset-0 z-[99999] flex items-center justify-center p-2 sm:p-4 md:p-6 bg-charcoal-green/98 backdrop-blur-xl"
         role="dialog"
         aria-modal="true"
       >

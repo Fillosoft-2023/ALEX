@@ -212,9 +212,9 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
           role="dialog"
           aria-modal="true"
           onClick={() => setLightboxOpen(false)}
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-between p-4 sm:p-8 animate-fadeIn"
+          className="fixed inset-0 z-[99999] bg-black/98 backdrop-blur-xl flex flex-col justify-between p-4 sm:p-8 animate-fadeIn"
         >
-          {/* Direct Circular Cross (✕) Cut Button */}
+          {/* Direct Circular Cross (✕) Cut Button - Ultra High Z-Index Above All Navbars */}
           <button
             id="lightbox-cut-close-btn"
             type="button"
@@ -222,14 +222,15 @@ export default function ProjectGallery({ images = [], projectTitle = 'Project' }
               e.stopPropagation();
               setLightboxOpen(false);
             }}
-            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex items-center justify-center size-11 sm:size-12 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-[0_0_20px_rgba(239,68,68,0.8)] border-2 border-white cursor-pointer hover:scale-110 active:scale-95 transition-all"
-            title="Cut / Close Photo (✕)"
+            className="fixed top-5 right-5 sm:top-6 sm:right-6 z-[100000] flex items-center justify-center size-12 sm:size-14 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-[0_0_30px_rgba(239,68,68,0.9)] border-2 border-white cursor-pointer hover:scale-110 active:scale-95 transition-all"
+            title="Cut / Close Photo (Esc)"
+            aria-label="Close Expanded Photo"
           >
-            <X className="size-6 stroke-[3]" />
+            <X className="size-7 stroke-[3]" />
           </button>
 
           {/* Lightbox Topbar */}
-          <div className="flex items-center justify-between text-white z-20 pr-28 sm:pr-36">
+          <div className="flex items-center justify-between text-white z-20 pr-24 sm:pr-32">
             <div className="space-y-0.5">
               <span className="text-xs text-coral-accent font-bold uppercase tracking-wider">
                 {projectTitle} &bull; Photo {selectedIndex + 1} of {normalizedImages.length}
