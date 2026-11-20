@@ -8,8 +8,14 @@ export const API_ORIGIN = API_BASE.replace(/\/api\/v\d+\/?$/, '');
  */
 export function mediaUrl(path) {
   if (!path || typeof path !== 'string') return path;
-  if (path.startsWith('/storage/')) return `${API_ORIGIN}${path}`;
-  return path.replace('http://127.0.0.1:8000/', `${API_ORIGIN}/`);
+  const trimmed = path.trim();
+  if (trimmed.startsWith('blob:') || trimmed.startsWith('data:')) return trimmed;
+  if (trimmed.startsWith('/storage/')) return `${API_ORIGIN}${trimmed}`;
+  if (trimmed.startsWith('storage/')) return `${API_ORIGIN}/${trimmed}`;
+  if (/^(cms_media|showcase_projects|blog_posts|gallery|sites|project_documents)\//i.test(trimmed)) {
+    return `${API_ORIGIN}/storage/${trimmed}`;
+  }
+  return trimmed.replace(/^https?:\/\/(127\.0\.0\.1|localhost):8000\//, `${API_ORIGIN}/`);
 }
 
 /** Recursively rewrite every /storage/... string inside API data (images, galleries, section content). */
