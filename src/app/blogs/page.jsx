@@ -41,7 +41,7 @@ export default async function BlogIndexPage() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 relative h-72 sm:h-96 w-full overflow-hidden">
                   <Image
-                    src={featured.image || '/heroa-bg.jpg'}
+                    src={featured.image || (Array.isArray(featured.gallery) && featured.gallery.find(g => !/\.(mp4|webm|ogg|mov|mkv)$/i.test(g))) || '/heroa-bg.jpg'}
                     alt={featured.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -86,7 +86,7 @@ export default async function BlogIndexPage() {
             >
               <div className="relative h-52 w-full overflow-hidden bg-neutral-800">
                 <Image
-                  src={post.image || '/heroa-bg.jpg'}
+                  src={post.image || (Array.isArray(post.gallery) && post.gallery.find(g => !/\.(mp4|webm|ogg|mov|mkv)$/i.test(g))) || '/heroa-bg.jpg'}
                   alt={post.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"

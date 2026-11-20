@@ -183,7 +183,13 @@ export default async function ProjectDetailPage({ params }) {
               </div>
 
               {/* Verified Photography & Facility Gallery */}
-              <ProjectGallery images={project.gallery} projectTitle={project.title} />
+              {(() => {
+                const allGalleryImages = [
+                  project.image,
+                  ...(Array.isArray(project.gallery) ? project.gallery : [])
+                ].filter(Boolean);
+                return <ProjectGallery images={allGalleryImages} projectTitle={project.title} />;
+              })()}
 
               {/* YouTube Video Embed if available */}
               {embedUrl && (
@@ -193,13 +199,22 @@ export default async function ProjectDetailPage({ params }) {
                     <span>Project Documentary &amp; Facility Walkthrough</span>
                   </div>
                   <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black shadow-inner">
-                    <iframe
-                      src={embedUrl}
-                      title={`${project.title} Video Documentary`}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full border-0"
-                    />
+                    {embedUrl.match(/\.(mp4|webm|ogg|mov)$/i) || embedUrl.includes('/storage/') ? (
+                      <video
+                        src={embedUrl}
+                        controls
+                        playsInline
+                        className="w-full h-full object-contain"
+                      />
+                    ) : (
+                      <iframe
+                        src={embedUrl}
+                        title={`${project.title} Video Documentary`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="w-full h-full border-0"
+                      />
+                    )}
                   </div>
                   <p className="text-[11px] text-charcoal-green/60 text-center">
                     Official video documentation of {project.title} facility and complete medical gas installation.

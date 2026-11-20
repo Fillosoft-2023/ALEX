@@ -22,6 +22,11 @@ export default async function BlogPostPage({ params }) {
     notFound();
   }
 
+  const isYouTube = Boolean(
+    post.video_embed &&
+    (post.video_embed.includes('youtube.com') || post.video_embed.includes('youtu.be'))
+  );
+
   return (
     <article className="min-h-screen bg-neutral-950 text-neutral-100 pt-32 pb-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,6 +74,36 @@ export default async function BlogPostPage({ params }) {
           </div>
         )}
 
+        {/* Featured Video (if uploaded or linked) */}
+        {post.video_embed && (
+          <div className="mb-12 rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900/60 p-4">
+            <div className="flex items-center gap-2 mb-3 px-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-teal-500 animate-pulse" />
+              <span className="text-xs font-mono uppercase tracking-wider text-neutral-300">
+                Article Video Presentation
+              </span>
+            </div>
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black">
+              {isYouTube ? (
+                <iframe
+                  src={post.video_embed}
+                  title={`${post.title} Video Presentation`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full border-0"
+                />
+              ) : (
+                <video
+                  src={post.video_embed}
+                  controls
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Content Body */}
         <div className="prose prose-invert prose-teal max-w-none space-y-6 text-neutral-300 leading-relaxed text-base sm:text-lg">
           {post.content ? (
@@ -81,6 +116,42 @@ export default async function BlogPostPage({ params }) {
             <p>Technical details forthcoming.</p>
           )}
         </div>
+
+        {/* Multi-Photo Gallery (if photos are uploaded) */}
+        {post.gallery && post.gallery.length > 0 && (
+          <section className="mt-14 pt-10 border-t border-neutral-800">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Photo Documentation & Gallery
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-400 mt-1">
+                  High-resolution visual archives and clinical facility references ({post.gallery.length} photos)
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {post.gallery.map((photoUrl, idx) => (
+                <div
+                  key={idx}
+                  className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900 transition-all duration-300 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/5"
+                >
+                  <Image
+                    src={photoUrl}
+                    alt={`${post.title} visual archive ${idx + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                    <span className="text-[11px] font-mono text-teal-400">
+                      Photo {idx + 1} of {post.gallery?.length}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Tags */}
         {post.tags && post.tags.length > 0 && (
@@ -102,16 +173,16 @@ export default async function BlogPostPage({ params }) {
         {/* CTA */}
         <div className="mt-16 p-8 rounded-2xl border border-neutral-800 bg-gradient-to-br from-neutral-900/80 to-neutral-950 text-center">
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-            Planning a Healthcare Infrastructure Project?
+            Equipping a Healthcare or Clinical Facility?
           </h3>
           <p className="text-sm text-neutral-400 max-w-lg mx-auto mb-6">
-            Speak with our medical planners and turnkey MEP engineers for feasibility audits, NABH design adherence, and equipment installation.
+            Consult our biomedical engineers and infrastructure specialists for turnkey hospital gas pipelines, modular OT design, and ICU equipment.
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold text-xs tracking-wider uppercase bg-teal-500 text-neutral-950 hover:bg-teal-400 transition-colors"
           >
-            Request Engineering Consultation &rarr;
+            Contact Engineering Team &rarr;
           </Link>
         </div>
 
@@ -119,4 +190,3 @@ export default async function BlogPostPage({ params }) {
     </article>
   );
 }
-
